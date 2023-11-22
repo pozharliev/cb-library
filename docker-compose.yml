@@ -1,0 +1,27 @@
+services:
+  server:
+    env_file:
+      - .env
+    build: server
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    volumes:
+      - ./server:/code/
+    depends_on:
+      - db
+    environment:
+      PORT: ${SERVER_PORT}
+
+  db:
+    image: postgres
+    volumes:
+      - data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=cb-library
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+
+volumes:
+  data:
