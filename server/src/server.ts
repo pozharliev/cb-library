@@ -5,6 +5,7 @@ import passport from "passport";
 import strategy from "./auth/strategy";
 
 import { type User } from "payload/generated-types";
+import { USERS_COLLECTION } from "./config/main";
 
 require("dotenv").config();
 const app = express();
@@ -27,7 +28,7 @@ const start = async(): Promise<void> => {
 		done(null, user.id);
 	});
 	passport.deserializeUser(async(id: string, done): Promise<void> => {
-		const ok = await payload.findByID({ collection: "users", id });
+		const ok = await payload.findByID({ collection: USERS_COLLECTION, id });
 		done(null, ok);
 	});
 

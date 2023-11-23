@@ -3,6 +3,7 @@ import { type User } from "payload/generated-types";
 
 import OAuth2Strategy, { type VerifyCallback } from "passport-oauth2";
 
+import { USERS_COLLECTION } from "../config/main";
 import { options } from "../config/auth";
 
 interface OAuthUser {
@@ -33,7 +34,7 @@ const strategy = new OAuth2Strategy(options, async function(
 		let user: User;
 
 		const userExists = await payload.find({
-			collection: "users",
+			collection: USERS_COLLECTION,
 			where: {
 				sub: {
 					equals: oauthUser.id,
@@ -45,7 +46,7 @@ const strategy = new OAuth2Strategy(options, async function(
 			user = userExists.docs[0];
 		} else {
 			user = await payload.create({
-				collection: "users",
+				collection: USERS_COLLECTION,
 				data: {
 					email: oauthUser.mail,
 					sub: oauthUser.id,
