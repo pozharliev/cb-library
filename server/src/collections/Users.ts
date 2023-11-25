@@ -1,6 +1,7 @@
 import { type CollectionConfig } from "payload/types";
 
 import { USERS_COLLECTION } from "../config/main";
+import isAdmin from "../auth/middleware";
 
 const Users: CollectionConfig = {
 	slug: USERS_COLLECTION,
@@ -38,6 +39,12 @@ const Users: CollectionConfig = {
 			required: true,
 		},
 	],
+	access: {
+		create: () => false,
+		delete: () => false,
+		read: isAdmin,
+		update: () => false,
+	},
 };
 
 export default Users;

@@ -10,12 +10,12 @@ import Users from "./collections/Users";
 
 import authEndpoints from "./auth/endpoints";
 
-import Dashboard from "./admin/components/Dashboard";
 import LoginButton from "./admin/components/LoginButton";
 
 export default buildConfig({
 	admin: {
 		user: Users.slug,
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		bundler: webpackBundler(),
 		webpack: (config) => {
 			return {
@@ -23,10 +23,12 @@ export default buildConfig({
 				resolve: {
 					...config.resolve,
 					fallback: {
+						// @ts-expect-error Not nullable
 						...config.resolve.fallback,
 						stream: require.resolve("stream-browserify"),
 					},
 					alias: {
+						// @ts-expect-error Not nullable
 						...config.resolve.alias,
 						passport: path.resolve(__dirname, "mocks/passport"),
 					},
@@ -35,9 +37,6 @@ export default buildConfig({
 		},
 		components: {
 			afterLogin: [LoginButton],
-			views: {
-				Dashboard,
-			},
 		},
 	},
 	endpoints: [
