@@ -59,6 +59,7 @@ const strategy = new OAuth2Strategy(options, async function(
 
 		callback(null, user);
 	} catch (e) {
+		payload.logger.error("User tried to sign in with bad data");
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		callback(e);
 	}

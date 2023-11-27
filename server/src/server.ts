@@ -21,6 +21,14 @@ const start = async(): Promise<void> => {
 		onInit: async(): Promise<void> => {
 			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
 		},
+		loggerOptions: {
+			level: process.env.NODE_ENV === "development" ? "debug" : "info",
+			transport: process.env.NODE_ENV === "development" ?
+				{
+					target: "pino-pretty",
+				} :
+				undefined,
+		},
 	});
 
 	passport.use(strategy);

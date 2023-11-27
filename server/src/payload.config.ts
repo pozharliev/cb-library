@@ -7,9 +7,9 @@ import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { slateEditor } from "@payloadcms/richtext-slate";
 
 import Users from "./collections/Users";
+import Books from "./collections/Books";
 
 import authEndpoints from "./auth/endpoints";
-
 import LoginButton from "./admin/components/LoginButton";
 
 export default buildConfig({
@@ -45,6 +45,7 @@ export default buildConfig({
 	editor: slateEditor({}),
 	collections: [
 		Users,
+		Books,
 	],
 	typescript: {
 		outputFile: path.resolve(__dirname, "payload-types.ts"),
