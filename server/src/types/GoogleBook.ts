@@ -14,7 +14,7 @@ export interface GoogleBooksGeneralInfo {
 	volumeInfo: GoogleBookType;
 }
 
-export interface GoogleBookType extends Option {
+export interface GoogleBookType {
 	title: string;
 	subtitle: string;
 	publishDate: string;

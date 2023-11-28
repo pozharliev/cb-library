@@ -1,79 +1,86 @@
-import React, { useState, useEffect } from "react";
-
-import { Label, reduceFieldsToValues, useAllFormFields } from "payload/components/forms";
-import ReactSelect from "payload/dist/admin/components/elements/ReactSelect";
+import React, { useState } from "react";
 
 import { type Props } from "payload/components/fields/Text";
+import { Label, reduceFieldsToValues, useAllFormFields } from "payload/components/forms";
+
+import AsyncCreatableSelect from "react-select/async-creatable";
+
 import type GoogleBookTypeWithValueAndLabel from "../../types/GoogleBook";
-import { type GoogleBooksRequest } from "../../types/GoogleBook";
-import { useDebouncedCallback } from "payload/dist/admin/hooks/useDebouncedCallback";
-const Option = (props: unknown): JSX.Element => {
-	return (
-		<h1 ref={props.innerRef} {...props.innerProps}> {props.data.title} | {props.data.subtitle} </h1>
-	);
-};
+import { type GoogleBooksRequest, type GoogleBookType } from "../../types/GoogleBook";
+
+import "payload/dist/admin/components/elements/ReactSelect/index.scss";
+import "./BookSearch.module.scss";
 
 export default function BookSearch(props: Props): JSX.Element {
-	const {
-		path,
-		label,
-		required,
-	} = props;
+	const { path, label, required } = props;
 
 	const [fields, dispatchFields] = useAllFormFields();
 	const formData = reduceFieldsToValues(fields, true);
 
 	const [input, setInput] = useState("");
-	const [options, setOptions] = useState<GoogleBookTypeWithValueAndLabel[]>([]);
-	const [selectedOption, setSelectedOption] = useState<GoogleBookTypeWithValueAndLabel | undefined>(undefined);
-	const [isLoading, setIsLoading] = useState(false);
 
-	const debouncedSearch = useDebouncedCallback(() => {
-		setIsLoading(true);
+	const option = (data: GoogleBookTypeWithValueAndLabel): JSX.Element => {
+		return (
+			<div className="custom-option">
+				<img src={data.imageLinks?.smallThumbnail} height={100} />
+				<h3>
+					{data.title} | {data.subtitle}
+				</h3>
+			</div>
+		);
+	};
 
-		fetch(`https://www.googleapis.com/books/v1/volumes?q=${input}`)
-			.then(data => data.json().then((books: GoogleBooksRequest) => {
-				console.log(books);
-				setOptions(books.items.map(value => value.volumeInfo).map(val => {
-					return {
-						...val,
-						value: val.title,
-						label: val.title,
-					};
-				}));
-			}))
-			.catch((e) => {
+	const search = (inputValue: string): Promise<GoogleBookTypeWithValueAndLabel[]> =>
+		fetch(`https://www.googleapis.com/books/v1/volumes?q=${inputValue}`)
+			.then(data =>
+				data.json().then((books: GoogleBooksRequest) =>
+					books.items
+						.map(value => value.volumeInfo)
+						.map((book: GoogleBookType) => {
+							return {
+								...book,
+								value: book.title,
+								label: book.title,
+							};
+						})
+				)
+			)
+			.catch(e => {
 				console.error(e);
-				// setOptions([]);
-			})
-			.finally(() => {
-				setIsLoading(false);
+				return [];
 			});
-	}, 500);
-
-	useEffect(() => {
-		debouncedSearch();
-	}, [input]);
-
-	console.log(options);
 
 	return (
 		<div>
-			<Label
-				htmlFor={path}
-				label={label}
-				required={required}
-			/>
-			<ReactSelect
-				options={options}
-				value={selectedOption}
-				isLoading={isLoading}
-				components={{
-					Option,
+			<Label htmlFor={path} label={label} required={required} />
+			<AsyncCreatableSelect
+				className="react-select"
+				classNamePrefix="rs"
+				styles={{
+					singleValue: base => {
+						return {
+							...base,
+							color: "rgb(235, 235, 235)",
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+						};
+					},
 				}}
-				onChange={(val: GoogleBookTypeWithValueAndLabel) => { setSelectedOption(val); }}
-				onInputChange={(val: string) => { setInput(val); }}
+				inputValue={input}
+				onInputChange={setInput}
+				createOptionPosition="first"
+				isClearable={true}
+				isSearchable={true}
+				cacheOptions={true}
+				loadOptions={search}
+				// onCreateOption={console.log}
+				formatOptionLabel={option}
+				// onChange={(val: GoogleBookTypeWithValueAndLabel) => {
+				// 	setInput(val.title);
+				// }}
+				// formatCreateLabel={}
 			/>
 		</div>
 	);
-};
+}
