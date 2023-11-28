@@ -8,17 +8,19 @@ import { slateEditor } from "@payloadcms/richtext-slate";
 
 import Users from "./collections/Users";
 import Books from "./collections/Books";
+import Categories from "./collections/Categories";
+import Media from "./collections/Media";
 
 import authEndpoints from "./auth/endpoints";
+
 import LoginButton from "./admin/components/LoginButton";
-import Categories from "./collections/Categories";
 
 export default buildConfig({
 	admin: {
 		user: Users.slug,
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		bundler: webpackBundler(),
-		webpack: (config) => {
+		webpack: config => {
 			return {
 				...config,
 				resolve: {
@@ -40,24 +42,16 @@ export default buildConfig({
 			afterLogin: [LoginButton],
 		},
 	},
-	endpoints: [
-		...authEndpoints,
-	],
+	endpoints: [...authEndpoints],
 	editor: slateEditor({}),
-	collections: [
-		Users,
-		Books,
-		Categories,
-	],
+	collections: [Users, Media, Books, Categories],
 	typescript: {
 		outputFile: path.resolve(__dirname, "payload-types.ts"),
 	},
 	graphQL: {
 		schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
 	},
-	plugins: [
-		payloadCloud(),
-	],
+	plugins: [payloadCloud()],
 	db: postgresAdapter({
 		pool: {
 			connectionString: process.env.DATABASE_URI,

@@ -1,20 +1,18 @@
-import { type Option } from "payload/dist/admin/components/elements/ReactSelect/types";
-
-export interface GoogleBooksRequest {
+export type GoogleBooksRequest = {
 	items: GoogleBooksGeneralInfo[];
-}
+};
 
-export interface GoogleBooksGeneralInfo {
+export type GoogleBooksGeneralInfo = {
 	accessInfo: Record<string, unknown>;
 	etag: string;
 	id: string;
 	kind: string;
 	saleInfo: string;
 	selfLink: string;
-	volumeInfo: GoogleBookType;
-}
+	volumeInfo: GoogleBook;
+};
 
-export interface GoogleBookType {
+export type GoogleBook = {
 	id: string;
 	title: string;
 	subtitle: string;
@@ -25,11 +23,4 @@ export interface GoogleBookType {
 		smallThumbnail: string;
 		thumbnail: string;
 	};
-}
-
-interface GoogleBookTypeWithValueAndLabel extends GoogleBookType {
-	value: string;
-	label: string;
-}
-
-export default GoogleBookTypeWithValueAndLabel;
+};

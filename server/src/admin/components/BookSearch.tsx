@@ -6,43 +6,51 @@ import { Label, reduceFieldsToValues, useAllFormFields } from "payload/component
 import AsyncCreatableSelect from "react-select/async-creatable";
 import type { ActionMeta } from "react-select";
 
-import type GoogleBookTypeWithValueAndLabel from "../../types/GoogleBook";
-import { type GoogleBooksRequest, type GoogleBookType } from "../../types/GoogleBook";
+import { type GoogleBooksRequest, type GoogleBook } from "../../types/GoogleBook";
 
 import { BOOK_API_URL } from "../../config/main";
 
 import "payload/dist/admin/components/elements/ReactSelect/index.scss";
 
-export default function BookSearch(props: Props): JSX.Element {
+type Option = {
+	value: string;
+	label: string;
+};
+type GoogleBookOption = GoogleBook & Option;
+
+export default function BookSearch (props: Props): JSX.Element {
 	const { path, label, required } = props;
 
 	const [fields, dispatchFields] = useAllFormFields();
 	const formData = reduceFieldsToValues(fields, true);
 
 	const [input, setInput] = useState("");
-	const [selectedOption, setSelectedOption] = useState(
-		formData.title === undefined ?
-			null :
+	const [selectedOption, setSelectedOption] = useState<Option | null>(
+		typeof formData.title === "string" ?
 			{
-				value: formData.title as string,
-				label: formData.title as string,
-			}
+				value: formData.title,
+				label: formData.title,
+			  } :
+			null
 	);
 
-	const formatLabel = (options: GoogleBookTypeWithValueAndLabel): string => {
-		if (options.label === undefined || options.label === null) {
+	const formatLabel = (options: GoogleBookOption): string => {
+		if (!options.label) {
 			return "";
 		}
-		return `${options.label}${options.authors?.length === undefined ? "" : ` от ${options.authors[0]}` ?? ""}`;
+
+		const author = options.authors?.[0];
+
+		return `${options.label}${author != null ? ` от ${author}` : ""}`;
 	};
 
-	const chooseOption = (data: GoogleBookTypeWithValueAndLabel, event: ActionMeta<GoogleBookTypeWithValueAndLabel>): void => {
+	const chooseOption = (data: GoogleBookOption, event: ActionMeta<GoogleBookOption>): void => {
 		switch (event.action) {
 			case "select-option":
 				dispatchFields({
 					path: "author",
 					type: "UPDATE",
-					value: data.authors === undefined ? "" : data.authors[0] ?? "",
+					value: data.authors?.[0] ?? "",
 				});
 
 				dispatchFields({
@@ -72,30 +80,20 @@ export default function BookSearch(props: Props): JSX.Element {
 		}
 	};
 
-	const searchBooks = (inputValue: string): Promise<GoogleBookTypeWithValueAndLabel[]> =>
-		fetch(BOOK_API_URL + `?q=${inputValue}`)
-			.then(data =>
-				data.json().then((books: GoogleBooksRequest) =>
-					books.items
-						.map(value => {
-							return {
-								...value.volumeInfo,
-								id: value.id,
-							};
-						})
-						.map((book: GoogleBookType) => {
-							return {
-								...book,
-								value: book.title,
-								label: book.title,
-							};
-						})
-				)
-			)
-			.catch(e => {
-				console.error(e);
-				return [];
-			});
+	const searchBooks = async (inputValue: string): Promise<GoogleBookOption[]> => {
+		const url = new URL(BOOK_API_URL);
+		url.searchParams.append("q", inputValue);
+
+		try {
+			const response = await fetch(url);
+			const { items }: GoogleBooksRequest = await response.json();
+
+			return items.map(({ volumeInfo }) => ({ ...volumeInfo, value: volumeInfo.title, label: volumeInfo.title }));
+		} catch (e) {
+			console.log(e);
+			return [];
+		}
+	};
 
 	return (
 		<div style={{ marginBottom: "3rem" }}>
