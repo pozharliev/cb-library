@@ -14,6 +14,7 @@ import Media from "./collections/Media";
 import authEndpoints from "./auth/endpoints";
 
 import LoginButton from "./admin/components/LoginButton";
+import DashboardView from "./admin/views/Dashboard";
 
 export default buildConfig({
 	admin: {
@@ -40,6 +41,10 @@ export default buildConfig({
 		},
 		components: {
 			afterLogin: [LoginButton],
+			views: {
+				// @ts-expect-error No idea
+				Dashboard: DashboardView,
+			},
 		},
 	},
 	endpoints: [...authEndpoints],

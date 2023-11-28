@@ -40,7 +40,11 @@ module.exports = {
 		quotes: ["error", "double"],
 		"no-tabs": ["error", { allowIndentationTabs: true }],
 		semi: ["error", "always"],
-		"space-before-function-paren": ["error", "always"],
+		"space-before-function-paren": ["error", {
+			"anonymous": "always",
+			"named": "never",
+			"asyncArrow": "always"
+		}],
 		"no-throw-literal": "off",
 		"no-trailing-spaces": ["error", { skipBlankLines: true }],
 		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
@@ -72,7 +76,11 @@ module.exports = {
 		"@typescript-eslint/restrict-template-expressions": ["error", { allowAny: true }],
 		"@typescript-eslint/quotes": ["error", "double"],
 		"@typescript-eslint/semi": ["error", "always"],
-		"@typescript-eslint/space-before-function-paren": ["error", "always"],
+		"@typescript-eslint/space-before-function-paren": ["error", {
+			"anonymous": "always",
+			"named": "never",
+			"asyncArrow": "always"
+		}],
 		"@typescript-eslint/no-extraneous-class": ["error", { allowStaticOnly: true }],
 		"@typescript-eslint/comma-dangle": [
 			"error",
