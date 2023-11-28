@@ -12,7 +12,6 @@ import { type GoogleBooksRequest, type GoogleBookType } from "../../types/Google
 import { BOOK_API_URL } from "../../config/main";
 
 import "payload/dist/admin/components/elements/ReactSelect/index.scss";
-import "./BookSearch.module.scss";
 
 export default function BookSearch(props: Props): JSX.Element {
 	const { path, label, required } = props;
@@ -53,7 +52,7 @@ export default function BookSearch(props: Props): JSX.Element {
 				});
 
 				dispatchFields({
-					path: "description",
+					path: "subtitle",
 					type: "UPDATE",
 					value: data.subtitle,
 				});
