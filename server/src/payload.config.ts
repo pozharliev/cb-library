@@ -11,6 +11,7 @@ import Books from "./collections/Books";
 
 import authEndpoints from "./auth/endpoints";
 import LoginButton from "./admin/components/LoginButton";
+import Categories from "./collections/Categories";
 
 export default buildConfig({
 	admin: {
@@ -46,6 +47,7 @@ export default buildConfig({
 	collections: [
 		Users,
 		Books,
+		Categories,
 	],
 	typescript: {
 		outputFile: path.resolve(__dirname, "payload-types.ts"),

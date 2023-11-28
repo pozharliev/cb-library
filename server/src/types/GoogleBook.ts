@@ -15,11 +15,12 @@ export interface GoogleBooksGeneralInfo {
 }
 
 export interface GoogleBookType {
+	id: string;
 	title: string;
 	subtitle: string;
 	publishDate: string;
 	language: string;
-	authors: string[];
+	authors?: string[];
 	imageLinks?: {
 		smallThumbnail: string;
 		thumbnail: string;

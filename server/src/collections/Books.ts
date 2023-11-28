@@ -1,6 +1,6 @@
 import { type CollectionConfig } from "payload/types";
 
-import { isAdmin, isLoggedIn } from "../auth/middleware";
+import { isAdmin } from "../auth/middleware";
 import BookSearch from "../admin/components/BookSearch";
 
 const Books: CollectionConfig = {
@@ -17,12 +17,32 @@ const Books: CollectionConfig = {
 					Field: BookSearch,
 				},
 			},
+			required: true,
+		},
+		{
+			name: "subtitle",
+			type: "text",
+		},
+		{
+			name: "author",
+			type: "text",
+			required: true,
+		},
+		{
+			name: "description",
+			type: "text",
+		},
+		{
+			name: "categories",
+			type: "relationship",
+			relationTo: "categories",
+			hasMany: true,
 		},
 	],
 	access: {
 		create: isAdmin,
 		delete: isAdmin,
-		read: isLoggedIn,
+		read: () => true,
 		update: isAdmin,
 	},
 };
