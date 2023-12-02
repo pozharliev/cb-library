@@ -3,10 +3,10 @@ import { type CollectionConfig } from "payload/types";
 import { isAdmin } from "../auth/middleware";
 import BookSearch from "../admin/components/BookSearch";
 
-const Books: CollectionConfig = {
+const Book: CollectionConfig = {
 	slug: "books",
 	admin: {
-		useAsTitle: "email",
+		useAsTitle: "title",
 	},
 	fields: [
 		{
@@ -47,4 +47,4 @@ const Books: CollectionConfig = {
 	},
 };
 
-export default Books;
+export default Book;

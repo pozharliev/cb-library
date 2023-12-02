@@ -3,7 +3,7 @@ import { type CollectionConfig } from "payload/types";
 import { USERS_COLLECTION } from "../config/main";
 import { isAdmin } from "../auth/middleware";
 
-const Users: CollectionConfig = {
+const User: CollectionConfig = {
 	slug: USERS_COLLECTION,
 	auth: {
 		disableLocalStrategy: true,
@@ -48,4 +48,4 @@ const Users: CollectionConfig = {
 	},
 };
 
-export default Users;
+export default User;

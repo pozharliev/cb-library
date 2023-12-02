@@ -18,7 +18,7 @@ type Option = {
 };
 type GoogleBookOption = GoogleBook & Option;
 
-export default function BookSearch (props: Props): JSX.Element {
+export default function BookSearch(props: Props): JSX.Element {
 	const { path, label, required } = props;
 
 	const [fields, dispatchFields] = useAllFormFields();

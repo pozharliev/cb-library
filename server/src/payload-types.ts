@@ -9,6 +9,10 @@
 export interface Config {
   collections: {
     users: User;
+    media: Media;
+    books: Book;
+    categories: Category;
+    'book-requests': BookRequest;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -21,6 +25,43 @@ export interface User {
   email: string;
   role: string;
   sub: string;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Media {
+  id: number;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+export interface Book {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  author: string;
+  description?: string | null;
+  categories?: (number | Category)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface Category {
+  id: number;
+  title: string;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface BookRequest {
+  id: number;
+  book?: (number | null) | Book;
+  user?: (number | null) | User;
+  actions?: ('approve' | 'decline') | null;
+  state?: ('stale' | 'approved' | 'declined') | null;
   updatedAt: string;
   createdAt: string;
 }

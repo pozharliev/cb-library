@@ -2,7 +2,7 @@ import { type CollectionConfig } from "payload/types";
 
 import { isAdmin } from "../auth/middleware";
 
-const Categories: CollectionConfig = {
+const Category: CollectionConfig = {
 	slug: "categories",
 	admin: {
 		useAsTitle: "title",
@@ -22,4 +22,4 @@ const Categories: CollectionConfig = {
 	},
 };
 
-export default Categories;
+export default Category;

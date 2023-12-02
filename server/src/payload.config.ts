@@ -6,9 +6,10 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { slateEditor } from "@payloadcms/richtext-slate";
 
-import Users from "./collections/Users";
-import Books from "./collections/Books";
-import Categories from "./collections/Categories";
+import User from "./collections/User";
+import Books from "./collections/Book";
+import Categories from "./collections/Category";
+import BookRequests from "./collections/BookRequest";
 import Media from "./collections/Media";
 
 import authEndpoints from "./auth/endpoints";
@@ -18,7 +19,7 @@ import DashboardView from "./admin/views/Dashboard";
 
 export default buildConfig({
 	admin: {
-		user: Users.slug,
+		user: User.slug,
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		bundler: webpackBundler(),
 		webpack: config => {
@@ -49,7 +50,7 @@ export default buildConfig({
 	},
 	endpoints: [...authEndpoints],
 	editor: slateEditor({}),
-	collections: [Users, Media, Books, Categories],
+	collections: [User, Media, Books, Categories, BookRequests],
 	typescript: {
 		outputFile: path.resolve(__dirname, "payload-types.ts"),
 	},
