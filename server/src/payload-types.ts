@@ -16,7 +16,9 @@ export interface Config {
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
-  globals: {};
+  globals: {
+    settings: Settings;
+  };
 }
 export interface User {
   id: number;
@@ -47,6 +49,8 @@ export interface Book {
   author: string;
   description?: string | null;
   categories?: (number | Category)[] | null;
+  status: 'taken' | 'inStore';
+  takenBy?: (number | null) | User;
   updatedAt: string;
   createdAt: string;
 }
@@ -58,10 +62,11 @@ export interface Category {
 }
 export interface BookRequest {
   id: number;
-  book?: (number | null) | Book;
-  user?: (number | null) | User;
-  actions?: ('approve' | 'decline') | null;
+  book: number | Book;
+  user: number | User;
+  action?: ('approve' | 'decline') | null;
   state?: ('stale' | 'approved' | 'declined') | null;
+  type: 'take' | 'return';
   updatedAt: string;
   createdAt: string;
 }
@@ -90,6 +95,12 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+export interface Settings {
+  id: number;
+  maxDaysRent?: number | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
 }
 
 

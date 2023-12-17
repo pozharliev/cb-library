@@ -16,7 +16,7 @@ interface OAuthUser {
 	userPrincipalName: string;
 }
 
-const strategy = new OAuth2Strategy(options, async function(
+const strategy = new OAuth2Strategy(options, async function (
 	accessToken: string,
 	refreshToken: string,
 	// eslint-disable-next-line @typescript-eslint/ban-types
@@ -29,7 +29,7 @@ const strategy = new OAuth2Strategy(options, async function(
 			headers: {
 				Authorization: `Bearer ${accessToken}`,
 			},
-		}).then(async(res) => await res.json() as OAuthUser);
+		}).then(async (res) => await res.json() as OAuthUser);
 
 		let user: User;
 
@@ -59,7 +59,7 @@ const strategy = new OAuth2Strategy(options, async function(
 
 		callback(null, user);
 	} catch (e) {
-		payload.logger.error("User tried to sign in with bad data");
+		payload.logger.error(e, "User tried to sign in with bad data");
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
 		callback(e);
 	}

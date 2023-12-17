@@ -38,6 +38,35 @@ const Book: CollectionConfig = {
 			relationTo: "categories",
 			hasMany: true,
 		},
+		{
+			name: "status",
+			type: "select",
+			required: true,
+			admin: {
+				readOnly: true,
+			},
+			options: [
+				{
+					label: "Taken",
+					value: "taken",
+				},
+				{
+					label: "In Store",
+					value: "inStore",
+				},
+			],
+			defaultValue: "inStore",
+		},
+		{
+			name: "takenBy",
+			label: "Taken By",
+			type: "relationship",
+			relationTo: "users",
+			required: false,
+			admin: {
+				readOnly: true,
+			},
+		},
 	],
 	access: {
 		create: isAdmin,

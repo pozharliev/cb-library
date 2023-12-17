@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "payload/dist/admin/components/elements/Button";
+import { Button } from "payload/components/elements";
 
 export default function LoginButton(): JSX.Element {
 	return (

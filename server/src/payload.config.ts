@@ -6,6 +6,8 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { slateEditor } from "@payloadcms/richtext-slate";
 
+import Settings from "./collections/Settings";
+
 import User from "./collections/User";
 import Books from "./collections/Book";
 import Categories from "./collections/Category";
@@ -14,10 +16,13 @@ import Media from "./collections/Media";
 
 import authEndpoints from "./auth/endpoints";
 
+import BookRequestProvider from "./admin/providers/bookRequests";
+
 import LoginButton from "./admin/components/LoginButton";
 import DashboardView from "./admin/views/Dashboard";
 
 export default buildConfig({
+	globals: [Settings],
 	admin: {
 		user: User.slug,
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -46,6 +51,9 @@ export default buildConfig({
 				// @ts-expect-error No idea
 				Dashboard: DashboardView,
 			},
+			providers: [
+				BookRequestProvider,
+			],
 		},
 	},
 	endpoints: [...authEndpoints],
@@ -63,4 +71,7 @@ export default buildConfig({
 			connectionString: process.env.DATABASE_URI,
 		},
 	}),
+	rateLimit: {
+		skip: () => process.env.NODE_ENV === "development",
+	},
 });

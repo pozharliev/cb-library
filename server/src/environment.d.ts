@@ -4,7 +4,7 @@ declare global {
 			NODE_ENV: "development" | "production";
 
 			DATABASE_URI: string;
-			SERVER_HOST: string;
+			PAYLOAD_PUBLIC_SERVER_HOST: string;
 
 			PAYLOAD_SECRET: string;
 
