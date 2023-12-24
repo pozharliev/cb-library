@@ -7,6 +7,7 @@ services:
       - "${SERVER_PORT}:${SERVER_PORT}"
     volumes:
       - ./server:/code/
+      - /code/node_modules
     depends_on:
       - db
     environment:
