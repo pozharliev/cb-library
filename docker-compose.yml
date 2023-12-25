@@ -1,12 +1,12 @@
 services:
-  server:
+  app:
     env_file:
       - .env
-    build: server
+    build: app
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     volumes:
-      - ./server:/code/
+      - ./app:/code/
       - /code/node_modules
     depends_on:
       - db

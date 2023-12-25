@@ -23,7 +23,7 @@ function BookRequest({ request }: { request: BookRequest }): JSX.Element {
 			</h4>
 
 			<div className="actions">
-				<Button buttonStyle="primary"> Approve </Button>
+				<Button buttonStyle="primary"> 123 </Button>
 				<Button buttonStyle="secondary"> Decline </Button>
 			</div>
 
@@ -37,6 +37,7 @@ export default function BookRequests(): JSX.Element {
 
 	return (
 		<div className="book-requests">
+			<h1> kur </h1>
 			{
 				requests.map(request =>
 					<BookRequest key={request.id} request={request} />

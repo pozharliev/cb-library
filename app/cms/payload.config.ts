@@ -23,6 +23,7 @@ import DashboardView from "./admin/views/Dashboard";
 
 export default buildConfig({
 	globals: [Settings],
+	serverURL: process.env.PAYLOAD_PUBLIC_SERVER_HOST,
 	admin: {
 		user: User.slug,
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -60,10 +61,10 @@ export default buildConfig({
 	editor: slateEditor({}),
 	collections: [User, Media, Books, Categories, BookRequests],
 	typescript: {
-		outputFile: path.resolve(__dirname, "payload-types.ts"),
+		outputFile: path.resolve(__dirname, "../payload-types.ts"),
 	},
 	graphQL: {
-		schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
+		schemaOutputFile: path.resolve(__dirname, "../generated-schema.graphql"),
 	},
 	plugins: [payloadCloud()],
 	db: postgresAdapter({
