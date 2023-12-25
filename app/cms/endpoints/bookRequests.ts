@@ -4,7 +4,7 @@ import { isAdmin } from "../auth/middleware";
 
 import type { Endpoint } from "payload/config";
 import { BookRequestAction } from "../collections/BookRequest";
-import { Book, BookRequest, User } from "payload/generated-types";
+import { BookRequest, User } from "payload/generated-types";
 import getObject from "../utils/getObject";
 
 
@@ -13,6 +13,8 @@ type BookRequestRequestType = {
 	requestAction: BookRequestAction;
 };
 
+// TODO: return response
+
 const takeBook = async (bookId: number, user: User) => {
 	await payload.update({
 		collection: "books",
@@ -20,6 +22,16 @@ const takeBook = async (bookId: number, user: User) => {
 		data: {
 			status: "taken",
 			takenBy: user,
+		},
+	});
+};
+
+const returnBook = async (bookId: number) => {
+	await payload.update({
+		collection: "books",
+		id: bookId,
+		data: {
+			status: "inStore",
 		},
 	});
 };
@@ -76,7 +88,7 @@ export const bookRequestAction: Endpoint = {
 				return res.status(403).send("Book was taken by a different person");
 			}
 
-			// trigger hook for returning book
+			return await returnBook(book.id);
 		}
 
 	
