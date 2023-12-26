@@ -37,7 +37,6 @@ export default function BookRequests(): JSX.Element {
 
 	return (
 		<div className="book-requests">
-			<h1> Hello </h1>
 			{
 				requests.map(request =>
 					<BookRequest key={request.id} request={request} />

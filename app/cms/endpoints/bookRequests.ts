@@ -58,8 +58,6 @@ export const bookRequestAction: Endpoint = {
 			return res.status(404).send("No book request found");
 		}
 
-		console.log("hello");
-
 		if (requestAction === "decline") {
 			await payload.update({
 				collection: "book-requests",
