@@ -52,22 +52,22 @@ const start = async (): Promise<void> => {
 
 		app.use(express.static("build/client", {maxAge: "1h"}));
 
-		app.all(
-			"*",
-			createRequestHandler({
-				// @ts-ignore
-				build: viteDevServer
-					? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
-					: await import("./build/server/index.js"),
-				getLoadContext(req, res) {
-					return {
-						payload: req.payload,
-						user: req?.user,
-						res,
-					};
-				},
-			})
-		);
+		// app.all(
+		// 	/^(?!\/admin\/).*$/,
+		// 	createRequestHandler({
+		// 		// @ts-ignore
+		// 		build: viteDevServer
+		// 			? () => viteDevServer.ssrLoadModule("virtual:remix/server-build")
+		// 			: await import("./build/server/index.js"),
+		// 		getLoadContext(req, res) {
+		// 			return {
+		// 				payload: req.payload,
+		// 				user: req?.user,
+		// 				res,
+		// 			};
+		// 		},
+		// 	})
+		// );
 	});
 
 	passport.use(strategy);

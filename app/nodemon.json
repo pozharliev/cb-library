@@ -1,7 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/nodemon.json",
+  "verbose": true,
   "ext": "ts",
-  "watch": ["client", "cms", "."],
-  "exec": "ts-node server.ts -- -I && remix vite:dev",
-  "stdin": false
+  "exec": "node -r ts-node/register server.ts",
+  "watch": ["server.ts", "cms"],
+  "stdin": false,
+  "legacyWatch": true
 }

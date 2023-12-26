@@ -44,6 +44,10 @@ export default buildConfig({
 						passport: path.resolve(__dirname, "mocks/passport"),
 					},
 				},
+				watch: true,
+				watchOptions: {
+					poll: true,
+				},
 			};
 		},
 		components: {
