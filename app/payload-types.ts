@@ -13,6 +13,7 @@ export interface Config {
     books: Book;
     categories: Category;
     'book-requests': BookRequest;
+    'book-logs': BookLog;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -67,6 +68,14 @@ export interface BookRequest {
   action?: ('approve' | 'decline') | null;
   state?: ('stale' | 'approved' | 'declined') | null;
   type: 'take' | 'return';
+  updatedAt: string;
+  createdAt: string;
+}
+export interface BookLog {
+  id: number;
+  book: number | Book;
+  user: number | User;
+  action?: ('take' | 'return') | null;
   updatedAt: string;
   createdAt: string;
 }

@@ -2,6 +2,9 @@ import { type CollectionConfig } from "payload/types";
 
 import { isAdmin } from "../auth/middleware";
 import BookSearch from "../admin/components/BookSearch";
+import {handleBookStatusChange} from "../hooks/books";
+
+export type BookStatus = "inStore" | "taken";
 
 const Book: CollectionConfig = {
 	slug: "books",
@@ -73,6 +76,9 @@ const Book: CollectionConfig = {
 		delete: isAdmin,
 		read: () => true,
 		update: isAdmin,
+	},
+	hooks: {
+		beforeChange: [handleBookStatusChange],
 	},
 };
 

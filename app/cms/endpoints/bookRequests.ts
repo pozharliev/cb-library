@@ -15,23 +15,22 @@ type BookRequestRequestType = {
 
 // TODO: return response
 
-const takeBook = async (bookId: number, user: User) => {
+const approveRequest = async (requestId: number) => {
 	await payload.update({
-		collection: "books",
-		id: bookId,
+		collection: "book-requests",
+		id: requestId,
 		data: {
-			status: "taken",
-			takenBy: user,
+			action: "approve",
 		},
 	});
 };
 
-const returnBook = async (bookId: number) => {
+const declineRequest = async (requestId: number) => {
 	await payload.update({
-		collection: "books",
-		id: bookId,
+		collection: "book-requests",
+		id: requestId,
 		data: {
-			status: "inStore",
+			action: "decline",
 		},
 	});
 };
@@ -59,14 +58,7 @@ export const bookRequestAction: Endpoint = {
 		}
 
 		if (requestAction === "decline") {
-			await payload.update({
-				collection: "book-requests",
-				id: bookRequest.id,
-				data: {
-					action: "decline",
-				},
-			});
-			// return res.send(xxxx)
+			return await declineRequest(bookRequest.id);
 		}
 
 		const book = await getObject(bookRequest.book, "books");
@@ -75,8 +67,6 @@ export const bookRequestAction: Endpoint = {
 			if (book.takenBy !== null) {
 				return res.status(406).send("Book is not in store yet");
 			}
-
-			return await takeBook(book.id, req.user as User);
 		} else if (bookRequest.type === "return") {
 			if (book.takenBy == null) {
 				return res.status(404).send("Book is in store");
@@ -87,8 +77,8 @@ export const bookRequestAction: Endpoint = {
 			if (user.id !== (req.user as User).id) {
 				return res.status(403).send("Book was taken by a different person");
 			}
-
-			return await returnBook(book.id);
 		}
+
+		return await approveRequest(bookRequest.id);
 	},
 };

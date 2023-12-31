@@ -40,3 +40,7 @@
 - Admin panel with information with books, users, requests and book rentals
 - UI for users to rent and check-out books
 - App for scanning the books' codes
+
+
+# Todos
+## Handle multiple books with same name and author
