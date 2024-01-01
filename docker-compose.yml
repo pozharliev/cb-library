@@ -16,7 +16,7 @@ services:
   db:
     image: postgres
     volumes:
-      - data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=cb-library
       - POSTGRES_USER=postgres
@@ -25,4 +25,4 @@ services:
       - "${DB_PORT}:${DB_PORT}"
 
 volumes:
-  data:
+  postgres_data:

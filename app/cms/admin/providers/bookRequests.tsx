@@ -21,7 +21,7 @@ export default function BookRequestProvider({ children }: { children: React.Reac
 
 	const fetchData = async () => {
 		const url = new URL(API_URL + URL_PREFIX);
-		const query = stringify({
+		url.search = stringify({
 			where: {
 				state: {
 					equals: "stale",
@@ -29,7 +29,6 @@ export default function BookRequestProvider({ children }: { children: React.Reac
 			},
 
 		});
-		url.search = query;
 
 		const { docs }: { docs: BookRequest[] } = await fetch(url).then(async res => res.json());
 

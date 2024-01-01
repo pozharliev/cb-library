@@ -1,15 +1,15 @@
 import React from "react";
 
+import { Button, DocumentDrawer, DocumentDrawerToggler } from "payload/components/elements";
 import { BookRequest } from "payload/generated-types";
 
 import useBookRequests from "../hooks/useBookRequests";
+import { ActionHandler } from "../types/BookRequest";
 
 import "../styles/BookRequests.scss";
-import { Button, DocumentDrawer, DocumentDrawerToggler } from "payload/components/elements";
 
-function BookRequest({ request }: { request: BookRequest }): JSX.Element {
+function BookRequest({ request, handleAccept, handleDecline }: { request: BookRequest, handleAccept: () => void, handleDecline: () => void }): JSX.Element {
 	const bookTitle = !request.book || typeof request.book === "number" ? "Книга" : request.book.title;
-
 	const userTitle = !request.user || typeof request.user === "number" ? "Човек" : request.user.firstName;
 	const userId = typeof request.user === "number" ? request.user : request.user != null ? request.user.id : null;
 
@@ -23,8 +23,8 @@ function BookRequest({ request }: { request: BookRequest }): JSX.Element {
 			</h4>
 
 			<div className="actions">
-				<Button buttonStyle="primary"> 123 </Button>
-				<Button buttonStyle="secondary"> Decline </Button>
+				<Button buttonStyle="primary" onClick={() => handleAccept()}> Accept </Button>
+				<Button buttonStyle="secondary" onClick={() => handleDecline()}> Decline </Button>
 			</div>
 
 			<DocumentDrawer collectionSlug="users" id={String(userId)} drawerSlug="users-drawer" />
@@ -38,9 +38,15 @@ export default function BookRequests(): JSX.Element {
 	return (
 		<div className="book-requests">
 			{
-				requests.map(request =>
-					<BookRequest key={request.id} request={request} />
-				)
+				requests.map(request => {
+
+					return <BookRequest
+						key={request.id}
+						request={request}
+						handleAccept={() => handleBookChange(request.id, "approve")}
+						handleDecline={() => handleBookChange(request.id, "decline")}
+					/>;
+				})
 			}
 		</div>
 	);

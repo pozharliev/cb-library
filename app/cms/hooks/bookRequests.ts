@@ -1,5 +1,5 @@
 import { CollectionBeforeChangeHook } from "payload/types";
-import { ValidationError } from "payload/errors";
+import { APIError } from "payload/errors";
 
 import { BookRequest } from "payload/generated-types";
 import { BookStatus } from "../collections/Book";
@@ -11,6 +11,7 @@ export const handleBookRequestAction: CollectionBeforeChangeHook<BookRequest> = 
 	originalDoc,
 }) => {
 	if (originalDoc?.action == null && data.action != null) {
+		// @ts-expect-error No idea
 		data.state = data.action.concat("d");
 	}
 	return data;
@@ -76,30 +77,15 @@ export const handleBookRequestCreation: CollectionBeforeChangeHook<BookRequest> 
 
 
 	if (data.type === "take" && book.status !== "inStore") {
-		throw new ValidationError([
-			{
-				field: "book",
-				message: "Book is already taken by someone else",
-			},
-		]);
+		throw new APIError("Book is already taken by someone else", 403, null, true);
 	}
 
 	if (data.type === "return" && book.status === "inStore") {
-		throw new ValidationError([
-			{
-				field: "book",
-				message: "Book is in store",
-			},
-		]);
+		throw new APIError("Book is in store", 404, null, true);
 	}
 
 	if (data.type === "return" && (bookTakenBy != null && bookTakenBy.id !== user.id)) {
-		throw new ValidationError([
-			{
-				field: "book",
-				message: "Book was taken by a different person",
-			},
-		]);
+		throw new APIError("Book is taken by a different person", 406, null, true);
 	}
 
 	return data;

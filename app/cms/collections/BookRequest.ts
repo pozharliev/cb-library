@@ -1,8 +1,7 @@
 import { type CollectionConfig } from "payload/types";
 
 import { isAdmin } from "../auth/middleware";
-import { bookRequestAction } from "../endpoints/bookRequests";
-import {handleBookRequestAction, handleBookRequestApproval, handleBookRequestCreation} from "../hooks/bookRequests";
+import { handleBookRequestAction, handleBookRequestApproval, handleBookRequestCreation } from "../hooks/bookRequests";
 
 export type BookRequestAction = "approve" | "decline";
 export type BookRequestState = "stale" | "approved" | "declined";
@@ -68,9 +67,6 @@ const BookRequest: CollectionConfig = {
 		update: () => process.env.NODE_ENV === "development",
 		delete: () => process.env.NODE_ENV === "development",
 	},
-	endpoints: [
-		bookRequestAction,
-	],
 	hooks: {
 		beforeChange: [handleBookRequestAction, handleBookRequestCreation, handleBookRequestApproval],
 	},

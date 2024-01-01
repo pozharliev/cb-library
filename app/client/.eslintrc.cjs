@@ -62,6 +62,9 @@ module.exports = {
           },
         },
       },
+      parserOptions: {
+        project: ["./tsconfig.json"]
+      },
       extends: [
         "plugin:@typescript-eslint/recommended",
         "plugin:import/recommended",

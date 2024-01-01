@@ -14,7 +14,6 @@ export const handleBookStatusChange: CollectionBeforeChangeHook<Book> = async ({
 		return data;
 	}
 
-
 	const statusChange = originalDoc.status === "inStore" && data.status === "taken" ? "take" : "return";
 	const userId = originalDoc.takenBy! ?? data.takenBy!;
 	const bookId = originalDoc.id ?? data.id!;

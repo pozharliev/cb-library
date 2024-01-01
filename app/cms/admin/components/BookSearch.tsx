@@ -6,7 +6,7 @@ import { Label, reduceFieldsToValues, useAllFormFields } from "payload/component
 import AsyncCreatableSelect from "react-select/async-creatable";
 import type { ActionMeta } from "react-select";
 
-import { type GoogleBooksRequest, type GoogleBook } from "../../types/GoogleBook";
+import { type GoogleBooksRequest, type GoogleBook } from "../types/GoogleBook";
 
 import { BOOK_API_URL } from "../../config/main";
 
