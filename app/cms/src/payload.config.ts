@@ -25,6 +25,8 @@ import BookLog from "./collections/BookLog";
 export default buildConfig({
 	globals: [Settings],
 	serverURL: process.env.PAYLOAD_PUBLIC_SERVER_HOST,
+	cors: [process.env.CLIENT_HOST],
+	csrf: [process.env.CLIENT_HOST],
 	admin: {
 		user: User.slug,
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -43,6 +45,7 @@ export default buildConfig({
 						// @ts-expect-error Not nullable
 						...config.resolve.alias,
 						passport: path.resolve(__dirname, "mocks/passport"),
+						meilisearch: path.resolve(__dirname, "mocks/meilisearch"),
 					},
 				},
 				watch: true,
@@ -66,10 +69,10 @@ export default buildConfig({
 	editor: slateEditor({}),
 	collections: [User, Media, Books, Category, BookRequest, BookLog],
 	typescript: {
-		outputFile: path.resolve(__dirname, "../payload-types.ts"),
+		outputFile: path.resolve(__dirname, "payload-types.ts"),
 	},
 	graphQL: {
-		schemaOutputFile: path.resolve(__dirname, "../generated-schema.graphql"),
+		schemaOutputFile: path.resolve(__dirname, "generated-schema.graphql"),
 	},
 	plugins: [payloadCloud()],
 	db: postgresAdapter({

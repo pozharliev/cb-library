@@ -5,10 +5,11 @@ import session from "express-session";
 import jwt from "jsonwebtoken";
 import getCookieExpiration from "payload/dist/utilities/getCookieExpiration";
 
-import { type User } from "../payload-types";
+import { type User } from "../../payload-types";
 import { type Endpoint } from "payload/config";
 
 import { AUTH_ENDPOINT, CALLBACK_ENDPOINT, USERS_COLLECTION } from "../config/main";
+import { isAdmin } from "./middleware";
 
 const authorizeEndpoint: Endpoint = {
 	path: AUTH_ENDPOINT,
@@ -66,7 +67,7 @@ const callbackMain: Endpoint = {
 			domain: config.auth.cookies.domain,
 		});
 
-		res.redirect("/admin");
+		res.redirect(isAdmin({ req }) ? "/admin" : "/");
 	},
 };
 

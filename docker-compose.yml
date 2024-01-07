@@ -1,17 +1,29 @@
 services:
-  app:
+  cms:
     env_file:
       - .env
-    build: app
+    build: app/cms
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     volumes:
-      - ./app:/code/
+      - ./app/cms:/code/
       - /code/node_modules
     depends_on:
       - db
     environment:
       PORT: ${SERVER_PORT}
+
+  client:
+    env_file:
+      - .env
+    build: app/client
+    ports:
+      - "${CLIENT_PORT}:${CLIENT_PORT}"
+    volumes:
+      - ./app/client:/code/
+      - /code/node_modules
+    depends_on:
+      - cms
 
   db:
     image: postgres
@@ -24,5 +36,16 @@ services:
     ports:
       - "${DB_PORT}:${DB_PORT}"
 
+  meilisearch:
+    image: getmeili/meilisearch:v1.4
+    ports:
+      - "${MEILISEARCH_PORT}:${MEILISEARCH_PORT}"
+    environment:
+      MEILI_MASTER_KEY: ${MEILISEARCH_MASTER_KEY}
+      MEILI_NO_ANALYTICS: true
+    volumes:
+      - meilisearch_data:/meili_data
+
 volumes:
   postgres_data:
+  meilisearch_data:

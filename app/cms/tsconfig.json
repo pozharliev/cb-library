@@ -11,10 +11,10 @@
     "rootDir": ".",
     "jsx": "react",
     "paths": {
-      "payload/generated-types": ["./payload-types.ts"]
+      "payload/generated-types": ["./src/payload-types.ts"]
     },
   },
-  "include": ["payload-types.ts", "server.ts", "cms", "environment.d.ts", "env.d.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist", "build"],
   "ts-node": {
     "transpileOnly": true,

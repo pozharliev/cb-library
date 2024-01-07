@@ -1,7 +1,1 @@
-build
-dist
-/media
-node_modules
-.DS_Store
-.env
-src/media
+node_modules/

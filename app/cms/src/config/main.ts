@@ -11,3 +11,5 @@ export const OAUTH_CALLBACK_URL = process.env.PAYLOAD_PUBLIC_SERVER_HOST + CALLB
 export const BOOK_API_URL = "https://www.googleapis.com/books/v1/volumes/";
 
 export const USERS_COLLECTION = "users";
+
+export const BOOKS_INDEX = "books";
