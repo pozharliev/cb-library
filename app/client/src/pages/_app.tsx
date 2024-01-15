@@ -1,7 +1,14 @@
+import "@mantine/core/styles.css";
+import "@app/global.css";
+
 import type { AppProps } from "next/app";
 
-import { ChakraProvider } from "@chakra-ui/react";
 import { SWRConfig } from "swr";
+
+import { MantineProvider } from "@mantine/core";
+import theme from "@app/theme";
+
+import Layout from "@app/components/common/Layout";
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
 	return (
@@ -17,9 +24,11 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 				}).then(res => res.json()),
 			}}
 		>
-			<ChakraProvider>
-				<Component {...pageProps} />
-			</ChakraProvider>
+			<MantineProvider theme={theme} defaultColorScheme="dark">
+				<Layout>
+					<Component {...pageProps} />
+				</Layout>
+			</MantineProvider>
 		</SWRConfig>
 	);
 }

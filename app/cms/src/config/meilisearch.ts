@@ -1,4 +1,3 @@
-import payload from "payload";
 import { MeiliSearch } from "meilisearch";
 
 import { BOOKS_INDEX } from "./main";
@@ -23,7 +22,7 @@ meilisearchClient
 
 meilisearchClient
 	.index(BOOKS_INDEX)
-	.updateFilterableAttributes(["location"])
+	.updateFilterableAttributes(["status", "author", "categories"])
 	.catch(console.error);
 
 export default meilisearchClient.index(BOOKS_INDEX);

@@ -1,9 +1,8 @@
-import { Text } from "@chakra-ui/react";
+import { Text, Title } from "@mantine/core";
 
 export default function Home(): JSX.Element {
 	return (
 		<>
-			<Text> Hello </Text>
 		</>
 	);
 }

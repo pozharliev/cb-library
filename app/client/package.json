@@ -9,23 +9,30 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@chakra-ui/next-js": "^2.2.0",
-    "@chakra-ui/react": "^2.8.2",
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "framer-motion": "^10.17.9",
+    "@mantine/core": "^7.4.1",
+    "@mantine/form": "^7.4.1",
+    "@mantine/hooks": "^7.4.1",
+    "@meilisearch/instant-meilisearch": "^0.14.0",
+    "@tabler/icons-react": "^2.45.0",
+    "meilisearch": "^0.36.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
+    "react-instantsearch": "^7.5.0",
     "swr": "^2.2.4"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint-config-standard-with-typescript": "^40.0.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
-    "typescript": "^5"
+    "eslint-config-standard-with-typescript": "^40.0.0",
+    "postcss": "^8.4.33",
+    "postcss-preset-mantine": "^1.12.3",
+    "postcss-simple-vars": "^7.0.1",
+    "typescript": "^5",
+    "@types/react-instantsearch": "^6.10.4",
+    "@types/react-instantsearch-dom": "^6.12.7"
   }
 }
