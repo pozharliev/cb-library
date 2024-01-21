@@ -2,14 +2,14 @@
 ----
 ## Frontend
 ---
-- React
-- Redux
+- Next.js
+- SWR
 - Mantine
 ## Backend
 ---
 - NodeJS
 - PayloadCMS
-- Any Search Engine
+- Meilisearch
 - PostgreSQL
 ## Infrastructure
 ---
@@ -43,4 +43,12 @@
 
 
 # Todos
-## Handle multiple books with same name and author
+## Redesign frontend
+## Fix dashboard requests layout
+## Add dashboard current books taken layout
+## Add profile page
+## Add statistics page
+## Add request page
+## Add product page
+## Add home page
+## Add better author handling
