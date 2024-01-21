@@ -9,12 +9,13 @@ import { MantineProvider } from "@mantine/core";
 import theme from "@app/theme";
 
 import Layout from "@app/components/common/Layout";
+import { AuthProvider } from "@app/context/auth";
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
 	return (
 		<SWRConfig
 			value={{
-				fetcher: (resource: string, init?: RequestInit) => fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/${resource}`, {
+				fetcher: (resource: string, init?: RequestInit) => fetch(`${process.env.NEXT_PUBLIC_SERVER_API_HOST}/${resource}`, {
 					...init,
 					credentials: "include",
 					headers: {
@@ -25,9 +26,11 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 			}}
 		>
 			<MantineProvider theme={theme} defaultColorScheme="dark">
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
+				<AuthProvider>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</AuthProvider>
 			</MantineProvider>
 		</SWRConfig>
 	);

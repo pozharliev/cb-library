@@ -1,18 +1,21 @@
 module.exports = {
-    MeiliSearch: function() {
-        return {
-            index: function (object) {
-                return {
-                    updateFilterableAttributes: async function (attributes) {
-                        // Mock implementation here
-                    },
-                };
-            },
-            createKey: async function (object) {
-                return {
-                };
-            },
-        };
-    }
-}
+	MeiliSearch: function () {
+		return {
+			index: function (object) {
+				return {
+					updateFilterableAttributes: async function (attributes) {
+						// Mock implementation here
+					},
+					updatePagination: async function (attributes) {
+						// Mock implementation here
+					},
+				};
+			},
+			createKey: async function (object) {
+				return {
+				};
+			},
+		};
+	},
+};
 

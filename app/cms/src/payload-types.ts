@@ -42,6 +42,24 @@ export interface Media {
   filesize?: number | null;
   width?: number | null;
   height?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    main?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 export interface Book {
   id: number;
@@ -52,6 +70,7 @@ export interface Book {
   categories?: (number | Category)[] | null;
   status: 'taken' | 'inStore';
   takenBy?: (number | null) | User;
+  image?: number | Media | null;
   updatedAt: string;
   createdAt: string;
 }

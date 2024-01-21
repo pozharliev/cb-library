@@ -21,7 +21,7 @@ export default function SearchBox(props: UseSearchBoxProps): JSX.Element {
 	return (
 		<Box component="form" onSubmit={onSubmit} py={rem(8)}>
 			<TextInput
-				size="md"
+				size="sm"
 				placeholder="All Books..."
 				{...form.getInputProps("search")}
 			/>

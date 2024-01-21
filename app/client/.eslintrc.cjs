@@ -89,10 +89,14 @@ module.exports = {
         }
       }
     ],
-    "@typescript-eslint/no-confusing-void-expression": ["error", {
-      "ignoreArrowShorthand": true
-    }
-    ]
+    "@typescript-eslint/no-confusing-void-expression":
+      [
+          "error", {
+            "ignoreArrowShorthand": true
+          }
+      ],
+      "@typescript-eslint/consistent-type-definitions": ["warn", "type"],
+      "@typescript-eslint/strict-boolean-expressions": 0
   },
   ignorePatterns: [".eslintrc.cjs", "tsconfig.json"]
 };

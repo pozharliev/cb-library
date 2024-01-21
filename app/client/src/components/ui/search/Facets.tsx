@@ -12,7 +12,7 @@ export function StatusFacet(props: Omit<UseRefinementListProps, "attribute">): J
 		sortBy: ["count:desc"],
 	});
 
-	return <Facet items={items} refine={refine} />;
+	return <Facet items={items} refine={refine} name="status" />;
 }
 
 export function CategoriesFacet(props: Omit<UseRefinementListProps, "attribute">): JSX.Element {
@@ -22,13 +22,23 @@ export function CategoriesFacet(props: Omit<UseRefinementListProps, "attribute">
 		sortBy: ["count:desc"],
 	});
 
-	return <Facet items={items} refine={refine} />;
+	return <Facet items={items} refine={refine} name="categories" />;
 }
 
-function Facet({ items, refine }: { items: RefinementListItem[], refine: (value: string) => void }): JSX.Element {
+export function AuthorFacet(props: Omit<UseRefinementListProps, "attribute">): JSX.Element {
+	const { items, refine } = useRefinementList({
+		...props,
+		attribute: "author",
+		sortBy: ["count:desc"],
+	});
+
+	return <Facet items={items} refine={refine} name="author" />;
+}
+
+function Facet({ items, refine, name }: { items: RefinementListItem[], refine: (value: string) => void, name: string }): JSX.Element {
 	return (
 		<Flex direction="column">
-			<Title order={2}> Status </Title>
+			<Title order={3} tt="capitalize"> {name} </Title>
 			<Divider mb="xs" />
 			<Flex direction="column" gap={rem(4)}>
 				{
@@ -50,10 +60,10 @@ function Facet({ items, refine }: { items: RefinementListItem[], refine: (value:
 								p={rem(4)}
 
 							>
-								<Checkbox variant="outline" checked={item.isRefined} />
-								<Text size="lg"> {camelCaseToWords(item.label)} </Text>
+								<Checkbox variant="outline" size="sm" checked={item.isRefined} />
+								<Text size="md"> {camelCaseToWords(item.label)} </Text>
 								<ThemeIcon ml="auto" variant="outline">
-									<Text> {item.count} </Text>
+									<Text size="sm"> {item.count} </Text>
 								</ThemeIcon>
 							</Flex>
 						);

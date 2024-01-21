@@ -5,7 +5,7 @@ import session from "express-session";
 import jwt from "jsonwebtoken";
 import getCookieExpiration from "payload/dist/utilities/getCookieExpiration";
 
-import { type User } from "../../payload-types";
+import { type User } from "payload/generated-types";
 import { type Endpoint } from "payload/config";
 
 import { AUTH_ENDPOINT, CALLBACK_ENDPOINT, USERS_COLLECTION } from "../config/main";

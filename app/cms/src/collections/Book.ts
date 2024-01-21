@@ -5,6 +5,7 @@ import BookSearch from "../admin/components/BookSearch";
 
 import { handleBookStatusChange } from "../hooks/books";
 import { syncMeilisearchOnDelete, syncMeilisearchOnUpdateOrCreate } from "../hooks/meilisearchSync";
+import { listWithAdditionalInformation } from "../endpoints/books";
 
 export type BookStatus = "inStore" | "taken";
 
@@ -72,6 +73,11 @@ const Book: CollectionConfig = {
 				readOnly: true,
 			},
 		},
+		{
+			name: "image",
+			type: "upload",
+			relationTo: "media",
+		},
 	],
 	access: {
 		create: isAdmin,
@@ -84,6 +90,7 @@ const Book: CollectionConfig = {
 		afterChange: [syncMeilisearchOnUpdateOrCreate],
 		afterDelete: [syncMeilisearchOnDelete],
 	},
+	endpoints: [listWithAdditionalInformation],
 };
 
 export default Book;

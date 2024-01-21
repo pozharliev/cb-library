@@ -1,5 +1,15 @@
-export default function Pagination(): JSX.Element {
+import { Pagination as MantinePagination } from "@mantine/core";
+import { usePagination, type UsePaginationProps } from "react-instantsearch";
+
+export default function Pagination(props: UsePaginationProps): JSX.Element {
+	const {
+		nbPages,
+		refine,
+	} = usePagination({
+		...props,
+	});
+
 	return (
-		<h1> Pagination </h1>
+		<MantinePagination total={nbPages} onChange={(v) => refine(v - 1)} />
 	);
 }

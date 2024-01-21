@@ -14,6 +14,7 @@
     "@mantine/hooks": "^7.4.1",
     "@meilisearch/instant-meilisearch": "^0.14.0",
     "@tabler/icons-react": "^2.45.0",
+    "js-cookie": "^3.0.5",
     "meilisearch": "^0.36.0",
     "next": "14.0.4",
     "react": "^18",
@@ -22,17 +23,18 @@
     "swr": "^2.2.4"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-instantsearch": "^6.10.4",
+    "@types/react-instantsearch-dom": "^6.12.7",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "eslint-config-standard-with-typescript": "^40.0.0",
     "postcss": "^8.4.33",
     "postcss-preset-mantine": "^1.12.3",
     "postcss-simple-vars": "^7.0.1",
-    "typescript": "^5",
-    "@types/react-instantsearch": "^6.10.4",
-    "@types/react-instantsearch-dom": "^6.12.7"
+    "typescript": "^5"
   }
 }
