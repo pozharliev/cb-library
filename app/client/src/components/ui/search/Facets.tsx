@@ -60,7 +60,7 @@ function Facet({ items, refine, name }: { items: RefinementListItem[], refine: (
 								p={rem(4)}
 
 							>
-								<Checkbox variant="outline" size="sm" checked={item.isRefined} />
+								<Checkbox variant="outline" size="sm" checked={item.isRefined} onChange={(v) => console.log(v.target.checked)} />
 								<Text size="md"> {camelCaseToWords(item.label)} </Text>
 								<ThemeIcon ml="auto" variant="outline">
 									<Text size="sm"> {item.count} </Text>

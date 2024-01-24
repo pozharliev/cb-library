@@ -85,7 +85,7 @@ export interface BookRequest {
   book: number | Book;
   user: number | User;
   action?: ('approve' | 'decline') | null;
-  state?: ('stale' | 'approved' | 'declined') | null;
+  state?: ('stale' | 'approved' | 'declined' | 'pending' | 'cancelled') | null;
   type: 'take' | 'return';
   updatedAt: string;
   createdAt: string;

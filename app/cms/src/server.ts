@@ -42,7 +42,7 @@ const start = async (): Promise<void> => {
 		done(null, ok);
 	});
 
-	new CronJobs();
+	new CronJobs().start();
 
 	app.listen(process.env.SERVER_PORT);
 };

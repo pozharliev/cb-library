@@ -19,7 +19,7 @@ export const listWithAdditionalInformation: Endpoint = {
 
 		// If the book was taken, or we don't have a user the state will either be taken or take
 		// else we can have a third state that will be pending which will only occur if we have a user
-		// and the user has created a request for the book
+		// and the user has created a requests for the book
 		// this is totally unnecessary, but it's cool
 		if (book.status === "taken" || user == null) {
 			return res.send({

@@ -2,7 +2,7 @@ import { type GetServerSideProps, type InferGetServerSidePropsType } from "next"
 
 import { Flex, Image, rem, Title, Text } from "@mantine/core";
 
-import { type Book, type BookRequest } from "payload/generated-types";
+import { type Book, type BookRequest, type Category } from "payload/generated-types";
 import { getImage } from "@app/utils/image";
 import Link from "next/link";
 
@@ -15,6 +15,16 @@ type BookOrError = BookInfo | {
 };
 
 export default function Page({ book }: { book: BookInfo }): InferGetServerSidePropsType<typeof getServerSideProps> {
+	const categories = book.categories
+		?.filter(cat => typeof cat !== "number")
+		.map(cat => {
+			return (
+				<Link key={(cat as Category).id} href={{ pathname: "/books", query: `categories[0]=${(cat as Category).title}` }}>
+					<Text size="md"> {(cat as Category).title} </Text>
+				</Link>
+			);
+		});
+
 	return (
 		<Flex gap={rem(48)} w="100%">
 			<Image
@@ -26,21 +36,24 @@ export default function Page({ book }: { book: BookInfo }): InferGetServerSidePr
 			/>
 
 			<Flex direction="column">
-				<Title order={3}> {book.title} </Title>
+				<Title order={3}> {book.title + (book.subtitle ? `. ${book.subtitle}.` : "")} </Title>
 
-				<Flex direction="row" justify="center" align="center" gap={rem(8)}>
+				<Flex direction="row" align="center" gap={rem(8)}>
 					<Title order={4}> Author: </Title>
-					<Link href={`/books?author=${book.author}`}>
+					<Link href={{ pathname: "/books", query: `author[0]=${book.author}` }}>
 						<Text size="md"> {book.author} </Text>
 					</Link>
 				</Flex>
 
-				<Flex direction="row" justify="center" align="center" gap={rem(8)}>
-					<Title order={4}> Categories: </Title>
-					<Link href={`/books?author=${book.author}`}>
-						<Text size="md"> {book.author} </Text>
-					</Link>
-				</Flex>
+				{
+					categories != null && categories?.length > 0 ?
+						<Flex direction="row" align="center" gap={rem(8)}>
+							<Title order={4}> Categories: </Title>
+							{categories}
+						</Flex> :
+						null
+				}
+
 			</Flex>
 		</Flex>
 	);

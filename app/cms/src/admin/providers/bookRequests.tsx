@@ -24,7 +24,7 @@ export default function BookRequestProvider({ children }: { children: React.Reac
 		url.search = stringify({
 			where: {
 				state: {
-					equals: "stale",
+					equals: "pending",
 				},
 			},
 

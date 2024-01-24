@@ -1,10 +1,10 @@
 import { type CollectionConfig } from "payload/types";
 
-import { isAdmin } from "../auth/middleware";
 import { handleBookRequestAction, handleBookRequestApproval, handleBookRequestCreation } from "../hooks/bookRequests";
+import { isAdmin } from "../auth/middleware";
 
 export type BookRequestAction = "approve" | "decline";
-export type BookRequestState = "stale" | "approved" | "declined";
+export type BookRequestState = "stale" | "approved" | "declined" | "pending" | "cancelled";
 export type BookRequestType = "take" | "return";
 
 const BookRequest: CollectionConfig = {
@@ -39,8 +39,8 @@ const BookRequest: CollectionConfig = {
 		{
 			name: "state",
 			type: "select",
-			options: ["stale", "approved", "declined"],
-			defaultValue: "stale",
+			options: ["stale", "approved", "declined", "pending", "cancelled"],
+			defaultValue: "pending",
 			admin: {
 				hidden: true,
 			},

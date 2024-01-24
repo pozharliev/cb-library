@@ -1,12 +1,12 @@
-import { Flex, Group, Paper, rem, Stack, Text, Title } from "@mantine/core";
+import { Flex, Paper, rem, Stack, Text, Title } from "@mantine/core";
 
 import { IconBook2 } from "@tabler/icons-react";
 
 import Search from "@app/components/common/Search";
 import SearchBox from "@app/components/ui/search/SearchBox";
-import { AuthorFacet, CategoriesFacet, StatusFacet } from "@app/components/ui/search/Facets";
 import Hits from "@app/components/ui/search/Hits";
 import Pagination from "@app/components/ui/search/Pagination";
+import { AuthorFacet, CategoriesFacet, StatusFacet } from "@app/components/ui/search/Facets";
 
 export default function Page(): JSX.Element {
 	return (

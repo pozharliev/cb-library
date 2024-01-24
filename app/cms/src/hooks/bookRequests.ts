@@ -10,6 +10,7 @@ export const handleBookRequestAction: CollectionBeforeChangeHook<BookRequest> = 
 	data,
 	originalDoc,
 }) => {
+	// the state has just changed
 	if (originalDoc?.action == null && data.action != null) {
 		// @ts-expect-error No idea
 		data.state = data.action.concat("d");
@@ -84,7 +85,7 @@ export const handleBookRequestCreation: CollectionBeforeChangeHook<BookRequest> 
 		throw new APIError("Book is in store", 404, null, true);
 	}
 
-	if (data.type === "return" && (bookTakenBy != null && bookTakenBy.id !== user.id)) {
+	if (data.type === "return" && bookTakenBy != null && bookTakenBy.id !== user.id) {
 		throw new APIError("Book is taken by a different person", 406, null, true);
 	}
 

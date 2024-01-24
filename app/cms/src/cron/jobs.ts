@@ -1,9 +1,19 @@
 import booksCronJob from "./books";
+import bookRequestCronJob from "./bookRequests";
+import { CronJob } from "cron";
 
-// TODO
 class CronJobs {
+	private cronJobs: Array<CronJob> = [];
+
 	constructor() {
-		booksCronJob.start();
+		this.cronJobs.push(booksCronJob);
+		this.cronJobs.push(bookRequestCronJob);
+	}
+
+	start() {
+		for (const job of this.cronJobs) {
+			job.start();
+		}
 	}
 }
 
