@@ -68,9 +68,9 @@ export interface Book {
   author: string;
   description?: string | null;
   categories?: (number | Category)[] | null;
+  image?: number | Media | null;
   status: 'taken' | 'inStore';
   takenBy?: (number | null) | User;
-  image?: number | Media | null;
   updatedAt: string;
   createdAt: string;
 }

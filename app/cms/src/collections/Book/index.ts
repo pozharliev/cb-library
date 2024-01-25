@@ -1,11 +1,12 @@
 import { type CollectionConfig } from "payload/types";
 
-import { isAdmin } from "../auth/middleware";
-import BookSearch from "../admin/components/BookSearch";
+import { isAdmin } from "../../auth/middleware";
+import BookSearch from "../../admin/components/BookSearch";
 
-import { handleBookStatusChange } from "../hooks/books";
-import { syncMeilisearchOnDelete, syncMeilisearchOnUpdateOrCreate } from "../hooks/meilisearchSync";
-import { listWithAdditionalInformation } from "../endpoints/books";
+import { handleBookStatusChange } from "./hooks";
+import { listWithAdditionalInformation } from "./endpoints";
+
+import { syncMeilisearchOnDelete, syncMeilisearchOnUpdateOrCreate } from "../../hooks/meilisearchSync";
 
 export type BookStatus = "inStore" | "taken";
 
@@ -45,6 +46,11 @@ const Book: CollectionConfig = {
 			hasMany: true,
 		},
 		{
+			name: "image",
+			type: "upload",
+			relationTo: "media",
+		},
+		{
 			name: "status",
 			type: "select",
 			required: true,
@@ -73,17 +79,12 @@ const Book: CollectionConfig = {
 				readOnly: true,
 			},
 		},
-		{
-			name: "image",
-			type: "upload",
-			relationTo: "media",
-		},
 	],
 	access: {
 		create: isAdmin,
-		delete: isAdmin,
 		read: () => true,
 		update: isAdmin,
+		delete: isAdmin,
 	},
 	hooks: {
 		beforeChange: [handleBookStatusChange],

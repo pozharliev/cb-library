@@ -2,9 +2,9 @@ import { CollectionBeforeChangeHook } from "payload/types";
 import { APIError } from "payload/errors";
 
 import { BookRequest } from "payload/generated-types";
-import { BookStatus } from "../collections/Book";
+import { BookStatus } from "../Book";
 
-import getObject from "../utils/getObject";
+import getObject from "../../utils/getObject";
 
 export const handleBookRequestAction: CollectionBeforeChangeHook<BookRequest> = ({
 	data,
@@ -19,10 +19,10 @@ export const handleBookRequestAction: CollectionBeforeChangeHook<BookRequest> = 
 };
 
 export const handleBookRequestApproval: CollectionBeforeChangeHook<BookRequest> = async ({
-	data,
-	operation,
-	req,
-	originalDoc,
+	 data,
+	 operation,
+	 req,
+	 originalDoc,
 }) => {
 	// we only want cases where the state has just changed
 	if (

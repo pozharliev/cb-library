@@ -1,5 +1,7 @@
 import type { GlobalConfig } from "payload/types";
 
+import { isAdmin } from "../auth/middleware";
+
 const Settings: GlobalConfig = {
 	slug: "settings",
 	fields: [
@@ -11,6 +13,10 @@ const Settings: GlobalConfig = {
 	],
 	typescript: {
 		interface: "Settings",
+	},
+	access: {
+		read: isAdmin,
+		update: isAdmin,
 	},
 };
 
