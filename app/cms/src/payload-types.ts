@@ -14,6 +14,7 @@ export interface Config {
     categories: Category;
     'book-requests': BookRequest;
     'book-logs': BookLog;
+    'book-inventory': BookInventory;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -69,8 +70,7 @@ export interface Book {
   description?: string | null;
   categories?: (number | Category)[] | null;
   image?: number | Media | null;
-  status: 'taken' | 'inStore';
-  takenBy?: (number | null) | User;
+  adminTitle?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -95,6 +95,15 @@ export interface BookLog {
   book: number | Book;
   user: number | User;
   action?: ('take' | 'return') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+export interface BookInventory {
+  id: number;
+  book: number | Book;
+  status: 'taken' | 'inStore';
+  takenBy?: (number | null) | User;
+  title?: string | null;
   updatedAt: string;
   createdAt: string;
 }

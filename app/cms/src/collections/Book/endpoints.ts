@@ -1,7 +1,8 @@
 import payload from "payload";
 import type { Endpoint } from "payload/config";
-import { User } from "payload/generated-types";
+import { Book, User } from "payload/generated-types";
 import { PayloadRequest } from "payload/types";
+import { NotFound, QueryError } from "payload/errors";
 
 
 export const listWithAdditionalInformation: Endpoint = {
@@ -11,11 +12,27 @@ export const listWithAdditionalInformation: Endpoint = {
 		const { id } = req.params;
 		const user = req.user;
 
-		const book = await payload.findByID({
-			collection: "books",
-			id,
-			depth: 2,
-		});
+		let book: Book;
+
+		if (isNaN(parseInt(id))) {
+			return res.status(400).send();
+		}
+
+		try {
+			book = await payload.findByID({
+				collection: "books",
+				id,
+				depth: 2,
+			});
+		} catch (e) {
+			if (e instanceof NotFound) {
+				return res.status(404).send();
+			}
+
+			payload.logger.error(e, `Error retrieving book with id ${id}`);
+			return res.status(400).send();
+		}
+
 
 		// If the book was taken, or we don't have a user the state will either be taken or take
 		// else we can have a third state that will be pending which will only occur if we have a user

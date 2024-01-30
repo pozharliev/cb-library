@@ -36,6 +36,9 @@
 
 # Todos
 ## Redesign frontend
+## Convert all fetch calls in nextjs clientside to SWR mutations
+## Refactor endpoints
+## Access control for book requests (cancelled requests shouldnt be approvable)
 ## Fix dashboard requests layout
 ## Add dashboard current books taken layout
 ## Add profile page

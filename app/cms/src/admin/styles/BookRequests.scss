@@ -4,11 +4,11 @@
   flex-direction: column;
 
   width: 50rem;
-  height: 400px;
+  height: 40rem;
 
   border: 1px solid var(--theme-elevation-750);
 
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .request {
     display: flex;

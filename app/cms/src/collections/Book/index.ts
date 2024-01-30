@@ -3,7 +3,6 @@ import { type CollectionConfig } from "payload/types";
 import { isAdmin } from "../../auth/middleware";
 import BookSearch from "../../admin/components/BookSearch";
 
-import { handleBookStatusChange } from "./hooks";
 import { listWithAdditionalInformation } from "./endpoints";
 
 import { syncMeilisearchOnDelete, syncMeilisearchOnUpdateOrCreate } from "../../hooks/meilisearchSync";
@@ -13,7 +12,7 @@ export type BookStatus = "inStore" | "taken";
 const Book: CollectionConfig = {
 	slug: "books",
 	admin: {
-		useAsTitle: "title",
+		useAsTitle: "adminTitle",
 	},
 	fields: [
 		{
@@ -51,32 +50,23 @@ const Book: CollectionConfig = {
 			relationTo: "media",
 		},
 		{
-			name: "status",
-			type: "select",
-			required: true,
+			name: "adminTitle",
+			type: "text",
 			admin: {
-				readOnly: true,
+				hidden: true, // hides the field from the admin panel
 			},
-			options: [
-				{
-					label: "Taken",
-					value: "taken",
-				},
-				{
-					label: "In Store",
-					value: "inStore",
-				},
-			],
-			defaultValue: "inStore",
-		},
-		{
-			name: "takenBy",
-			label: "Taken By",
-			type: "relationship",
-			relationTo: "users",
-			required: false,
-			admin: {
-				readOnly: true,
+			hooks: {
+				beforeChange: [
+					({ siblingData }) => {
+						// ensures data is not stored in DB
+						delete siblingData["adminTitle"];
+					},
+				],
+				afterRead: [
+					({ data }) => {
+						return `${data.title} by ${data.author}`;
+					},
+				],
 			},
 		},
 	],
@@ -87,7 +77,6 @@ const Book: CollectionConfig = {
 		delete: isAdmin,
 	},
 	hooks: {
-		beforeChange: [handleBookStatusChange],
 		afterChange: [syncMeilisearchOnUpdateOrCreate],
 		afterDelete: [syncMeilisearchOnDelete],
 	},

@@ -1,7 +1,9 @@
 import { useRouter } from "next/router";
-import { useAuth } from "@app/context/auth";
 import { useLayoutEffect } from "react";
-import { Flex, Loader } from "@mantine/core";
+
+import { useAuth } from "@app/context/auth";
+
+import Loading from "@app/components/common/Loading";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }): JSX.Element {
 	const router = useRouter();
@@ -13,17 +15,9 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 		}
 	}, []);
 
-	if (isLoading) {
-		return (
-			<Flex align="center" justify="center" h="100%" w="100%">
-				<Loader size="xl" />
-			</Flex>
-		);
-	}
-
 	return (
-		<>
+		<Loading isLoading={isLoading}>
 			{children}
-		</>
+		</Loading>
 	);
 };

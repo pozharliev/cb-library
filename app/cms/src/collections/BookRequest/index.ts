@@ -1,8 +1,10 @@
 import { type CollectionConfig } from "payload/types";
 
-import { handleBookRequestAction, handleBookRequestApproval, handleBookRequestCreation } from "./hooks";
+import { handleRequestAction, handleBookRequestApproval, handleBookRequestCreation } from "./hooks";
+import { cancelBookRequest, createBookRequest } from "./endpoints";
 
 import { isAdmin } from "../../auth/middleware";
+import { hasCreatedRequest } from "./access";
 
 export type BookRequestAction = "approve" | "decline";
 export type BookRequestType = "take" | "return";
@@ -64,13 +66,14 @@ const BookRequest: CollectionConfig = {
 	],
 	access: {
 		create: () => process.env.NODE_ENV === "development",
-		read: isAdmin,
+		read: process.env.NODE_ENV === "development" ? () => true : isAdmin || hasCreatedRequest,
 		update: () => process.env.NODE_ENV === "development",
 		delete: () => process.env.NODE_ENV === "development",
 	},
 	hooks: {
-		beforeChange: [handleBookRequestAction, handleBookRequestCreation, handleBookRequestApproval],
+		beforeChange: [handleRequestAction, handleBookRequestCreation, handleBookRequestApproval],
 	},
+	endpoints: [createBookRequest, cancelBookRequest],
 };
 
 export default BookRequest;

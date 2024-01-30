@@ -33,7 +33,9 @@ module.exports = {
     "react-hooks/exhaustive-deps": "warn",
 
     "operator-linebreak": ["error", "after"],
-    "indent": ["error", "tab"],
+    "indent": ["error", "tab", {
+      "SwitchCase": 1,
+    }],
     "quotes": ["error", "double"],
     "no-tabs": ["error", { "allowIndentationTabs": true }],
     "semi": ["error", "always"],

@@ -13,6 +13,8 @@ import Books from "./collections/Book";
 import Category from "./collections/Category";
 import BookRequest from "./collections/BookRequest";
 import Media from "./collections/Media";
+import BookLog from "./collections/BookLog";
+import BookInventory from "./collections/BookInventory";
 
 import authEndpoints from "./auth/endpoints";
 
@@ -20,7 +22,6 @@ import BookRequestProvider from "./admin/providers/bookRequests";
 
 import LoginButton from "./admin/components/LoginButton";
 import DashboardView from "./admin/views/Dashboard";
-import BookLog from "./collections/BookLog";
 
 export default buildConfig({
 	globals: [Settings],
@@ -67,7 +68,7 @@ export default buildConfig({
 	},
 	endpoints: [...authEndpoints],
 	editor: slateEditor({}),
-	collections: [User, Media, Books, Category, BookRequest, BookLog],
+	collections: [User, Media, Books, Category, BookRequest, BookLog, BookInventory],
 	typescript: {
 		outputFile: path.resolve(__dirname, "payload-types.ts"),
 	},

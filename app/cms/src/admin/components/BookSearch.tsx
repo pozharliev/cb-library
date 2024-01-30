@@ -41,7 +41,7 @@ export default function BookSearch(props: Props): JSX.Element {
 
 		const author = options.authors?.[0];
 
-		return `${options.label}${author != null ? ` от ${author}` : ""}`;
+		return `${options.label}${author != null ? ` by ${author}` : ""}`;
 	};
 
 	const chooseOption = (data: GoogleBookOption, event: ActionMeta<GoogleBookOption>): void => {

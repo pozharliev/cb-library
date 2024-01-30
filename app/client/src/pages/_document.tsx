@@ -6,7 +6,6 @@ export default function Document(): JSX.Element {
 	return (
 		<Html lang="en">
 			<Head>
-				<meta name="viewport" content="width=device-width, initial-scale=1"/>
 				<ColorSchemeScript defaultColorScheme="dark"/>
 			</Head>
 			<body>
