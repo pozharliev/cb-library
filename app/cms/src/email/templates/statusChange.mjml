@@ -1,0 +1,20 @@
+<mjml>
+    <mj-body>
+        <mj-container>
+            <mj-section>
+                <mj-column>
+                    <mj-divider border-color="#F45E43"></mj-divider>
+                    <mj-text font-size="20px" color="#333333" font-family="Helvetica Neue, Arial, sans-serif">
+                        Hey <span style="color: #007bff;"> {{userFullName}} </span>,
+                    </mj-text>
+                    <mj-text font-size="16px" color="#555555" font-family="Helvetica Neue, Arial, sans-serif">
+                        Your request <span style="font-weight: bold; color: #3366cc;">#NUMBER</span> has
+                        <span style="color: #F45E43; font-weight: bold;">changed its status</span>.
+                        It went from <strong>{{ stateFrom }}</strong> to <strong>{{ stateTo }}</strong>.
+                    </mj-text>
+                    <mj-divider border-color="#F45E43"></mj-divider>
+                </mj-column>
+            </mj-section>
+        </mj-container>
+    </mj-body>
+</mjml>
