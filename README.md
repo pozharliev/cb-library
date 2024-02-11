@@ -40,10 +40,8 @@
 ## Refactor endpoints
 ## Access control for book requests (cancelled requests shouldnt be approvable)
 ## Fix dashboard requests layout
-## Add dashboard current books taken layout
 ## Add profile page
 ## Add statistics page
-## Add request page
-## Add product page
+## Refine request page
+## Refine product page
 ## Add home page
-## Add better author handling

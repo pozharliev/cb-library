@@ -1,9 +1,9 @@
-import meilisearchClient from "../config/meilisearch";
+import meilisearchClient from "../../config/meilisearch";
 
 import { CollectionAfterChangeHook, CollectionAfterDeleteHook } from "payload/types";
 import { Book } from "payload/generated-types";
 
-import getObject from "../utils/getObject";
+import getObject from "../../utils/getObject";
 
 
 export const syncMeilisearchOnUpdateOrCreate: CollectionAfterChangeHook<Book> = async ({

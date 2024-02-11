@@ -2,7 +2,7 @@ import { type CollectionConfig } from "payload/types";
 
 import { isAdmin } from "../../auth/middleware";
 import getObject from "../../utils/getObject";
-import { handleBookInventoryStatusChange } from "./hooks";
+import { handleBookInventoryStatusChange, syncMeilisearchOnUpdateOrCreate } from "./hooks";
 
 export type BookStatus = "inStore" | "taken";
 
@@ -77,6 +77,7 @@ const BookInventory: CollectionConfig = {
 	},
 	hooks: {
 		beforeChange: [handleBookInventoryStatusChange],
+		afterChange: [syncMeilisearchOnUpdateOrCreate],
 	},
 };
 

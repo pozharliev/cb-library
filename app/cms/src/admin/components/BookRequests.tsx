@@ -36,7 +36,7 @@ export default function BookRequests(): JSX.Element {
 	const [requests, handleBookChange] = useBookRequests();
 
 	return (
-		<div className="book-requests">
+		<div className="container">
 			{
 				requests.map(request => {
 

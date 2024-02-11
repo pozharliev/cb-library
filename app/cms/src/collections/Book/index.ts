@@ -5,7 +5,7 @@ import BookSearch from "../../admin/components/BookSearch";
 
 import { listWithAdditionalInformation } from "./endpoints";
 
-import { syncMeilisearchOnDelete, syncMeilisearchOnUpdateOrCreate } from "../../hooks/meilisearchSync";
+import { syncMeilisearchOnDelete, syncMeilisearchOnUpdateOrCreate } from "./hooks";
 
 export type BookStatus = "inStore" | "taken";
 
