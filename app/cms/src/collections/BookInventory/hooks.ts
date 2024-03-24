@@ -54,7 +54,7 @@ export const syncMeilisearchOnUpdateOrCreate: CollectionAfterChangeHook<BookInve
 				},
 			},
 		})
-		.then(docs => docs.docs.find(books => books.id === doc.id) == null ? docs.totalDocs + 1 : docs.totalDocs);
+		.then(docs => docs.totalDocs);
 
 	book.availableCopies = availableCopies;
 

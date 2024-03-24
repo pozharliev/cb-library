@@ -67,7 +67,7 @@ export default function Header(): JSX.Element {
 							</Text>
 						</Button>
 
-						<Button component={Link} href="http://github.com" variant="subtle">
+						<Button component={Link} href="https://github.com" variant="subtle">
 							<IconBrandGithub
 								width={isMobile ? rem(26) : rem(44)}
 								height={isMobile ? rem(26) : rem(44)}

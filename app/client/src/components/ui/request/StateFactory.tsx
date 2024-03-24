@@ -14,8 +14,9 @@ export default function StateFactory({ data }: { data: BookRequest }): JSX.Eleme
 	switch (data?.state) {
 		case "pending":
 			return <PendingState data={data} book={book} />;
-
 		case "approved":
 			return <ApprovedState data={data} book={book} />;
+		default:
+			return <h1> Default state </h1>;
 	}
 }

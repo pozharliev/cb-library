@@ -17,12 +17,12 @@ export default function RequestModal({ book, opened, close }: { book: Book, open
 				"Content-Type": "application/json",
 			},
 		});
+		
+		const response: { request: BookRequest } = await request.json();
 
 		if (request.status >= 400) {
 			router.push("/error");
 		}
-		
-		const response: { request: BookRequest } = await request.json();
 
 		await router.push({ pathname: `/requests/${response.request.id}` });
 	};
@@ -33,10 +33,7 @@ export default function RequestModal({ book, opened, close }: { book: Book, open
 				<Text size="xl" > Do you want to proceed? </Text>
 				<Flex justify="space-evenly" w="100%">
 					<Flex align="center" gap={rem(4)}>
-						<Tooltip label="You need to be authorized for this action.">
-							<IconInfoCircle width={32} height={32} />
-						</Tooltip>
-						<Button size="compact-xl" fw="500" onClick={onProceed} disabled={!isAuthenticated}> Proceed </Button>
+						<Button size="compact-xl" fw="500" onClick={onProceed} disabled={!isAuthenticated} hidden={true}> Proceed </Button>
 					</Flex>
 					<Button size="compact-xl" variant="outline" fw="500" onClick={close}> Cancel </Button>
 				</Flex>

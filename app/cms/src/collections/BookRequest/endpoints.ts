@@ -35,6 +35,7 @@ export const createBookRequest: Endpoint = {
 
 			return res.send({ request });
 		} catch (e) {
+			console.log(e);
 			return res.status(400).send();
 		}
 	},

@@ -25,13 +25,7 @@ export const ApprovedState = ({ data, book }: { data: BookRequest, book: Book })
 					<Flex gap={rem(8)} align="center">
 						<Title order={2} fw="500">Current status of the request is: </Title>
 						<Button variant="outline" disabled={true}>
-							Pending
-						</Button>
-					</Flex>
-					<Flex align="center" gap={rem(8)}>
-						<Title order={3} fw="500"> Current actions you can take: </Title>
-						<Button>
-							Cancel
+							Approved
 						</Button>
 					</Flex>
 				</Flex>

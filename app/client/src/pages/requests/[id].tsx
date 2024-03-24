@@ -46,7 +46,6 @@ export const getServerSideProps: GetServerSideProps<{ notFound: boolean }, { id:
 
 	return {
 		props: {
-
 		},
 	};
 };

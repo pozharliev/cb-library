@@ -10,7 +10,10 @@ import { getImage } from "@app/utils/image";
 import { useDisclosure } from "@mantine/hooks";
 import RequestModal from "@app/components/ui/request/Modal";
 
-type BookHit = Book & BaseHit;
+type BookHit = Book & BaseHit &
+{
+	availableCopies: number;
+};
 
 function Hit({ hit }: { hit: BookHit }): JSX.Element {
 	const [opened, { open, close }] = useDisclosure(false);
@@ -26,8 +29,8 @@ function Hit({ hit }: { hit: BookHit }): JSX.Element {
 				m={0}
 				w={0}
 			>
-				<Paper withBorder={true} py="xs">
-					<Flex align="center" direction="column" gap={rem(8)}>
+				<Paper withBorder={true} py="xs" h={rem(400)}>
+					<Flex align="center" direction="column" justify="center" gap={rem(8)} h="100%">
 						<Link href={`/books/${hit.id}`}>
 							<Image
 								alt={hit.title}
@@ -35,12 +38,14 @@ function Hit({ hit }: { hit: BookHit }): JSX.Element {
 								src={getImage(hit, "thumbnail")}
 								fallbackSrc={"https://placehold.co/400"}
 								w={rem(150)}
+								h={rem(250)}
+								style={{ objectFit: "contain" }}
 							/>
 						</Link>
 						<Title ta="center" order={4}> {hit.title} </Title>
 						<Text ta="center" size="xs"> {hit.author} </Text>
 						{
-							hit.status === "inStore" ?
+							hit.availableCopies > 0 ?
 								<>
 									<Button leftSection={<IconCheck />} size="sm" onClick={() => open()} > Take </Button>
 								</> :
