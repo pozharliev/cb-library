@@ -35,11 +35,7 @@ const handleTakeRequestApproval = async (book: Book, user: User) => {
 				status: "taken",
 				takenBy: user.id,
 			},
-			where: {
-				id: {
-					equals: randomBook.id,
-				},
-			},
+			id: randomBook.id,
 		});
 	} catch (e) {
 		payload.logger.error(e, "Failed to take a book");

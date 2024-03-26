@@ -3,7 +3,7 @@ import { type CollectionConfig } from "payload/types";
 import { isAdmin } from "../../auth/middleware";
 import BookSearch from "../../admin/components/BookSearch";
 
-import { listWithAdditionalInformation } from "./endpoints";
+import { getTakenBooks, listWithAdditionalInformation } from "./endpoints";
 
 import { syncMeilisearchOnDelete, syncMeilisearchOnUpdateOrCreate } from "./hooks";
 
@@ -80,7 +80,7 @@ const Book: CollectionConfig = {
 		afterChange: [syncMeilisearchOnUpdateOrCreate],
 		afterDelete: [syncMeilisearchOnDelete],
 	},
-	endpoints: [listWithAdditionalInformation],
+	endpoints: [listWithAdditionalInformation, getTakenBooks],
 };
 
 export default Book;

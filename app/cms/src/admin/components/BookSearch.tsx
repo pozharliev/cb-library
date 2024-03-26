@@ -90,7 +90,6 @@ export default function BookSearch(props: Props): JSX.Element {
 
 			return items.map(({ volumeInfo }) => ({ ...volumeInfo, value: volumeInfo.title, label: volumeInfo.title }));
 		} catch (e) {
-			console.log(e);
 			return [];
 		}
 	};

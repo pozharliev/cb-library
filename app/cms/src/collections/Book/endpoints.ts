@@ -3,7 +3,50 @@ import type { Endpoint } from "payload/config";
 import { Book, User } from "payload/generated-types";
 import { PayloadRequest } from "payload/types";
 import { NotFound, QueryError } from "payload/errors";
+import book from "./index";
+import getObject from "../../utils/getObject";
 
+
+export const getTakenBooks: Endpoint = {
+	path: "/taken",
+	method: "get",
+	handler: async (req: PayloadRequest, res) => {
+		const takenBooks = await payload
+			.find({
+				collection: "book-inventory",
+				where: {
+					status: {
+						equals: "taken",
+					},
+				},
+			}).then(docs => docs.docs);
+
+
+		const takenBooksWithMoreInfo = await Promise.all(takenBooks.map(async book => {
+			const bookLogs =  await payload.find({
+				collection: "book-logs",
+				where: {
+					book: {
+						equals: book.id,
+					},
+					action: {
+						equals: "take",
+					},
+				},
+				sort: "-createdAt",
+			});
+
+			const latestLog = bookLogs.docs[0];
+
+			return {
+				...book,
+				createdAt: latestLog.createdAt,
+			};
+		}));
+
+		return res.send(takenBooksWithMoreInfo);
+	},
+};
 
 export const listWithAdditionalInformation: Endpoint = {
 	path: "/:id/info",
