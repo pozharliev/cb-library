@@ -47,6 +47,7 @@ export default buildConfig({
 						...config.resolve.alias,
 						passport: path.resolve(__dirname, "mocks/passport"),
 						meilisearch: path.resolve(__dirname, "mocks/meilisearch"),
+						"fs/promises": path.resolve(__dirname, "mocks/promises"),
 					},
 				},
 				watch: true,

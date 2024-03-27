@@ -14,9 +14,14 @@ type NoticeEmailArgs = {
 };
 
 type StatusChangeEmailArgs = {
-	statusFrom: string;
-	statusTo: string;
-	requestId: string;
+	stateFrom: string;
+	stateTo: string;
+	requestId: number;
+};
+
+const SUBJECTS = {
+	"notice": "Notice about taken book that is overdue",
+	"statusChange": "Status change on your recent book request",
 };
 
 type SendEmailArgs = EmailArgs & (NoticeEmailArgs | StatusChangeEmailArgs);
@@ -28,12 +33,14 @@ export const sendEmail = async (template: Template, args: SendEmailArgs): Promis
 			...args,
 		});
 
-		await payload.sendEmail({
-			from: "abpozharliev19@codingburgas.bg",
-			to: args.to,
-			html: output,
-			subject: "hello",
-		}).then(console.log);
+		if (process.env.NODE_ENV !== "development") {
+			await payload.sendEmail({
+				from: "abpozharliev19@codingburgas.bg",
+				to: args.to,
+				html: output,
+				subject: SUBJECTS[template],
+			}).then(console.log);
+		}
 	} catch (e) {
 		payload.logger.error(e, "Error loading handlebars template");
 	}

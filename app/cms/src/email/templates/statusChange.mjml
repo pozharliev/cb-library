@@ -8,7 +8,7 @@
                         Hey <span style="color: #007bff;"> {{userFullName}} </span>,
                     </mj-text>
                     <mj-text font-size="16px" color="#555555" font-family="Helvetica Neue, Arial, sans-serif">
-                        Your request <span style="font-weight: bold; color: #3366cc;">#NUMBER</span> has
+                        Your request <span style="font-weight: bold; color: #3366cc;">#{{requestId}}</span> has
                         <span style="color: #F45E43; font-weight: bold;">changed its status</span>.
                         It went from <strong>{{ stateFrom }}</strong> to <strong>{{ stateTo }}</strong>.
                     </mj-text>

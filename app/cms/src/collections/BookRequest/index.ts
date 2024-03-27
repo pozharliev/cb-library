@@ -1,6 +1,11 @@
 import { type CollectionConfig } from "payload/types";
 
-import { handleRequestAction, handleBookRequestApproval, handleBookRequestCreation } from "./hooks";
+import {
+	handleRequestAction,
+	handleBookRequestApproval,
+	handleBookRequestCreation,
+	sendEmailOnStatusChange
+} from "./hooks";
 import { cancelBookRequest, createBookRequest } from "./endpoints";
 
 import { isAdmin } from "../../auth/middleware";
@@ -72,6 +77,7 @@ const BookRequest: CollectionConfig = {
 	},
 	hooks: {
 		beforeChange: [handleRequestAction, handleBookRequestCreation, handleBookRequestApproval],
+		afterChange: [sendEmailOnStatusChange],
 	},
 	endpoints: [createBookRequest, cancelBookRequest],
 };
