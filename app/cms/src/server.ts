@@ -23,6 +23,19 @@ const start = async (): Promise<void> => {
 		onInit: async (): Promise<void> => {
 			payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
 		},
+		email: {
+			fromName: "Atanas",
+			fromAddress: "ABPozharliev19@codingburgas.bg",
+			transportOptions: {
+				host: "smtp-mail.outlook.com", // hostname
+				secureConnection: false, // use SSL
+				port: 587, // port for secure SMTP
+				auth: {
+					user: process.env.OUTLOOK_USER,
+					pass: process.env.OUTLOOK_PASSWORD,
+				},
+			},
+		},
 		loggerOptions: {
 			level: process.env.NODE_ENV === "development" ? "debug" : "info",
 			transport: process.env.NODE_ENV === "development" ?

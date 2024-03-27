@@ -21,6 +21,9 @@ declare global {
 
 			MEILISEARCH_URL: string;
 			MEILISEARCH_MASTER_KEY: string;
+
+			OUTLOOK_USER: string;
+			OUTLOOK_PASSWORD: string;
 		}
 	}
 }

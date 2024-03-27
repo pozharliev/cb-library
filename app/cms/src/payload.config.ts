@@ -58,7 +58,6 @@ export default buildConfig({
 		components: {
 			afterLogin: [LoginButton],
 			views: {
-				// @ts-expect-error No idea
 				Dashboard: DashboardView,
 			},
 			providers: [

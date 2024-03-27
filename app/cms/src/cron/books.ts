@@ -3,6 +3,7 @@ import payload from "payload";
 import { CronJob } from "cron";
 import getObject from "../utils/getObject";
 import { BookLog } from "payload/generated-types";
+import { sendEmail } from "../email/sender";
 
 const sendReminderForNotReturnedBooks = async () => {
 	payload.logger.info("Sending reminders for not returned books");
@@ -18,7 +19,7 @@ const sendReminderForNotReturnedBooks = async () => {
 
 	const booksThatAreTaken = await payload
 		.find({
-			collection: "books",
+			collection: "book-inventory",
 			where: {
 				and: [
 					{
@@ -38,13 +39,14 @@ const sendReminderForNotReturnedBooks = async () => {
 
 	for (const takenBook of booksThatAreTaken) {
 		const bookTakenBy = await getObject(takenBook.takenBy!, "users");
+		const book = await getObject(takenBook.book, "books");
 
 		const bookLog: BookLog | undefined = await payload
 			.find({
 				collection: "book-logs",
 				where: {
 					book: {
-						equals: takenBook.id,
+						equals: book.id,
 					},
 					action: {
 						equals: "take",
@@ -59,12 +61,21 @@ const sendReminderForNotReturnedBooks = async () => {
 				sort: "-createdAt",
 			})
 			.then(bookLogs => bookLogs.docs[0]);
-		// await send email
+
+
+		if (bookLog != undefined) {
+			await sendEmail("notice", {
+				to: bookTakenBy.email,
+				bookName: book.title,
+				userFullName: bookTakenBy.fullName,
+			});
+		}
+
 	}
 };
 
 export default CronJob.from({
-	cronTime: "* * * * *",
+	cronTime: process.env.NODE_ENV === "development" ? "* * * * *": "0 7 * * *",
 	onTick: sendReminderForNotReturnedBooks,
 	timeZone: "Europe/Sofia",
 });

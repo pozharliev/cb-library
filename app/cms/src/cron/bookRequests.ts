@@ -24,7 +24,7 @@ const convertPendingRequestsToStale = async () => {
 };
 
 export default CronJob.from({
-	cronTime: "* * * * *",
+	cronTime: process.env.NODE_ENV === "development" ? "* * * * *" : "0 7 * * *",
 	onTick: convertPendingRequestsToStale,
 	timeZone: "Europe/Sofia",
 });
