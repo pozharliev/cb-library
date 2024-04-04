@@ -14,6 +14,7 @@
     "@mantine/hooks": "^7.4.1",
     "@meilisearch/instant-meilisearch": "^0.14.0",
     "@tabler/icons-react": "^2.45.0",
+    "d3": "^7.9.0",
     "js-cookie": "^3.0.5",
     "meilisearch": "^0.36.0",
     "next": "14.0.4",

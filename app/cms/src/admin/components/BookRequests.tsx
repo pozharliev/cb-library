@@ -12,11 +12,12 @@ function BookRequest({ request, handleAccept, handleDecline }: { request: BookRe
 	const bookTitle = !request.book || typeof request.book === "number" ? "Книга" : request.book.title;
 	const userTitle = !request.user || typeof request.user === "number" ? "Човек" : request.user.firstName;
 	const userId = typeof request.user === "number" ? request.user : request.user != null ? request.user.id : null;
+	const typeRequest = request.type === "take" ? "взимане" : "връщане"
 
 	return (
 		<div className="request">
 			<h4>
-				{`Заявка за взимане на ${bookTitle} от `}
+				{`Заявка за ${typeRequest} на ${bookTitle} от `}
 				<DocumentDrawerToggler collectionSlug="users" drawerSlug="users-drawer" id={String(userId)}>
 					<h4> {userTitle} </h4>
 				</DocumentDrawerToggler>

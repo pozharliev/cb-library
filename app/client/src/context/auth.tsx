@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }): JSX.E
 	const { data, isLoading } = useSWR<AuthResponse, unknown>(
 		"/users/me",
 		{
-			refreshInterval: 60000,
+			refreshInterval: 1000,
 		}
 	);
 	

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 
 import { useAuth } from "@app/context/auth";
 
@@ -7,13 +7,15 @@ import Loading from "@app/components/common/Loading";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }): JSX.Element {
 	const router = useRouter();
-	const { isAuthenticated, isLoading } = useAuth();
+	const { isAuthenticated, isLoading, user } = useAuth();
 
-	useLayoutEffect(() => {
+
+	useEffect(() => {
+		console.log(isAuthenticated, isLoading);
 		if (!isAuthenticated && !isLoading) {
 			router.push("/login");
 		}
-	}, []);
+	}, [user]);
 
 	return (
 		<Loading isLoading={isLoading}>

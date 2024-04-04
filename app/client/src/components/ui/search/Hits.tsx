@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { Image, Paper, Title, Text, rem, Grid, Flex, Button } from "@mantine/core";
 import { type BaseHit } from "instantsearch.js";
-import { type Book, Media } from "payload/generated-types";
+import { type Book } from "payload/generated-types";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { getImage } from "@app/utils/image";
 import { useDisclosure } from "@mantine/hooks";

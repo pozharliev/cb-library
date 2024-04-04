@@ -82,3 +82,55 @@ export const cancelBookRequest: Endpoint = {
 		}
 	},
 };
+
+export const getBookRequestsByUser: Endpoint = {
+	path: "/user/:id",
+	method: "get",
+	handler: async (req: PayloadRequest<User>, res) => {
+		const userId = req.params.id;
+
+		if (userId == null || userId === "") {
+			return res.status(400).send();
+		}
+
+		let user: User;
+
+		try {
+			user = await getObject(Number(userId), "users");
+		} catch(e) {
+			return res.status(404).send();
+		}
+
+		const requests = await payload.find({
+			collection: "book-requests",
+			where: {
+				user: {
+					equals: user.id,
+				},
+			},
+		}).then(docs => docs.docs);
+
+		const requestsWithReturnInfo = await Promise.all(requests.map(async request => {
+			const book = await getObject(request.book, "books");
+
+			const bookInventory = await payload.find({
+				collection: "book-inventory",
+				where: {
+					book: {
+						equals: book.id,
+					},
+					takenBy: {
+						equals: user.id,
+					},
+				},
+			}).then(docs => docs.totalDocs > 0 ? docs.docs[0] : null);
+
+			return {
+				...request,
+				taken: bookInventory != null,
+			};
+		}));
+
+		return res.send(requestsWithReturnInfo);
+	},
+};

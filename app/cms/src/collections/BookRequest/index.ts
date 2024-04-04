@@ -6,7 +6,7 @@ import {
 	handleBookRequestCreation,
 	sendEmailOnStatusChange
 } from "./hooks";
-import { cancelBookRequest, createBookRequest } from "./endpoints";
+import { cancelBookRequest, createBookRequest, getBookRequestsByUser } from "./endpoints";
 
 import { isAdmin } from "../../auth/middleware";
 import { hasCreatedRequest } from "./access";
@@ -79,7 +79,7 @@ const BookRequest: CollectionConfig = {
 		beforeChange: [handleRequestAction, handleBookRequestCreation, handleBookRequestApproval],
 		afterChange: [sendEmailOnStatusChange],
 	},
-	endpoints: [createBookRequest, cancelBookRequest],
+	endpoints: [createBookRequest, cancelBookRequest, getBookRequestsByUser],
 };
 
 export default BookRequest;
