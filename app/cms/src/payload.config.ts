@@ -17,6 +17,7 @@ import BookLog from "./collections/BookLog";
 import BookInventory from "./collections/BookInventory";
 
 import authEndpoints from "./auth/endpoints";
+import emailEndpoints from "./endpoints/email";
 
 import BookRequestProvider from "./admin/providers/bookRequests";
 
@@ -66,7 +67,7 @@ export default buildConfig({
 			],
 		},
 	},
-	endpoints: [...authEndpoints],
+	endpoints: [...authEndpoints, ...emailEndpoints],
 	editor: slateEditor({}),
 	collections: [User, Media, Books, Category, BookRequest, BookLog, BookInventory],
 	typescript: {

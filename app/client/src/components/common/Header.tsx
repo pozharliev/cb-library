@@ -42,17 +42,6 @@ export default function Header(): JSX.Element {
 							books
 							</Text>
 						</Button>
-
-						<Button variant="subtle" component={Link} href="/statistics">
-							<IconGraph
-								width={isMobile ? rem(26) : rem(44)}
-								height={isMobile ? rem(26) : rem(44)}
-								stroke={1.5}
-							/>
-							<Text size="xl" visibleFrom="sm">
-							statistics
-							</Text>
-						</Button>
 					</Flex>
 
 					<Flex>

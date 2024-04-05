@@ -13,6 +13,23 @@ function Book({ book }: { book?: { book?: Book, createdAt?: Date, takenBy?: User
 	const userTitle = book?.takenBy?.firstName;
 	const userId = book?.takenBy?.id;
 
+	const sendEmail = () => {
+		const URL_PREFIX = "/email/reminder/";
+		const url = new URL(process.env.PAYLOAD_PUBLIC_SERVER_HOST + URL_PREFIX);
+
+		fetch(url, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				bookId,
+				userId,
+			}),
+		})
+			.catch(console.error);
+	};
+
 	return (
 		<div className="request">
 			<h4>
@@ -27,7 +44,7 @@ function Book({ book }: { book?: { book?: Book, createdAt?: Date, takenBy?: User
 			</h4>
 
 			<div className="actions">
-				<Button buttonStyle="primary"> Send Email </Button>
+				<Button buttonStyle="primary" onClick={sendEmail}> Send Email </Button>
 			</div>
 
 			<DocumentDrawer collectionSlug="users" id={String(userId)} drawerSlug="users-drawer" />

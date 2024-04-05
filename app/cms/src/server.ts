@@ -1,6 +1,7 @@
 import express from "express";
 import payload from "payload";
 import passport from "passport";
+import bodyParser from "body-parser";
 
 import strategy from "./auth/strategy";
 
@@ -12,6 +13,8 @@ require("dotenv").config();
 
 const start = async (): Promise<void> => {
 	const app = express();
+
+	app.use(bodyParser.json());
 
 	app.get("/", (req, res) => {
 		res.redirect("/admin");

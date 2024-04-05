@@ -5,16 +5,6 @@ import { Flex, Title, Text, Checkbox, ThemeIcon, Divider, rem } from "@mantine/c
 
 import { camelCaseToWords } from "@app/utils/camelCaseToSentence";
 
-export function StatusFacet(props: Omit<UseRefinementListProps, "attribute">): JSX.Element {
-	const { items, refine } = useRefinementList({
-		...props,
-		attribute: "status",
-		sortBy: ["count:desc"],
-	});
-
-	return <Facet items={items} refine={refine} name="status" />;
-}
-
 export function CategoriesFacet(props: Omit<UseRefinementListProps, "attribute">): JSX.Element {
 	const { items, refine } = useRefinementList({
 		...props,
@@ -60,7 +50,7 @@ function Facet({ items, refine, name }: { items: RefinementListItem[], refine: (
 								p={rem(4)}
 
 							>
-								<Checkbox variant="outline" size="sm" checked={item.isRefined} onChange={(v) => console.log(v.target.checked)} />
+								<Checkbox variant="outline" size="sm" checked={item.isRefined} />
 								<Text size="md"> {camelCaseToWords(item.label)} </Text>
 								<ThemeIcon ml="auto" variant="outline">
 									<Text size="sm"> {item.count} </Text>

@@ -19,13 +19,18 @@ type StatusChangeEmailArgs = {
 	requestId: number;
 };
 
+type EmailArgsByType = {
+	notice: NoticeEmailArgs;
+	statusChange: StatusChangeEmailArgs;
+};
+
+
 const SUBJECTS = {
 	"notice": "Notice about taken book that is overdue",
 	"statusChange": "Status change on your recent book request",
 };
 
-type SendEmailArgs = EmailArgs & (NoticeEmailArgs | StatusChangeEmailArgs);
-export const sendEmail = async (template: Template, args: SendEmailArgs): Promise<void> => {
+export const sendEmail = async<T extends keyof EmailArgsByType> (template: T, args: EmailArgs & EmailArgsByType[T]): Promise<void> => {
 	try {
 		const rawTemplate = await fs.readFile(__dirname + `/src/${template}.hbs`, "utf8");
 		const dataTemplate = handlebars.compile(rawTemplate);
@@ -33,14 +38,12 @@ export const sendEmail = async (template: Template, args: SendEmailArgs): Promis
 			...args,
 		});
 
-		if (process.env.NODE_ENV !== "development") {
-			await payload.sendEmail({
-				from: "abpozharliev19@codingburgas.bg",
-				to: args.to,
-				html: output,
-				subject: SUBJECTS[template],
-			}).then(console.log);
-		}
+		await payload.sendEmail({
+			from: "abpozharliev19@codingburgas.bg",
+			to: args.to,
+			html: output,
+			subject: SUBJECTS[template],
+		}).then(console.log);
 	} catch (e) {
 		payload.logger.error(e, "Error loading handlebars template");
 	}

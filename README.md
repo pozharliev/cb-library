@@ -8,6 +8,7 @@
 - PayloadCMS
 - Meilisearch
 - PostgreSQL
+- MJML & Handlebars Email Templates
 
 # Description
 ## User
@@ -30,6 +31,5 @@
 ## Redesign frontend
 ## Convert all fetch calls in nextjs clientside to SWR mutations
 ## Refactor endpoints
-## Refine request page
 ## Refine product page
 ## Add home page

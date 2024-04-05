@@ -62,7 +62,7 @@ function ExistingRequest({ data }: { data: RequestWithTakenInfo }): JSX.Element 
 					<Flex direction="column" justify="center" align="center" gap={rem(8)}>
 						<Text size="xs"> Available actions: </Text>
 						<Flex gap={rem(8)}>
-							<Button component={Link} href={`/book-requests/${data.id}`} size="xs">
+							<Button component={Link} href={`/requests/${data.id}`} size="xs">
 								Go
 							</Button>
 							<Button onClick={() => cancel.trigger({ requestId: data.id })} size="xs" disabled={!(data.state === "pending" || data.state === "stale")}>
@@ -85,8 +85,6 @@ export default function Page(): JSX.Element {
 	const { data, isLoading } = useSWR<RequestWithTakenInfo[], DefaultError<APIError>>(`/book-requests/user/${user?.id}`, {
 		refreshInterval: 1000,
 	});
-
-	console.log(data);
 
 	return (
 		<ProtectedRoute>
