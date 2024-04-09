@@ -22,7 +22,7 @@ export default function SearchBox(props: UseSearchBoxProps): JSX.Element {
 		<Box component="form" onSubmit={onSubmit} py={rem(8)}>
 			<TextInput
 				size="sm"
-				placeholder="All Books..."
+				placeholder="Всички книги..."
 				{...form.getInputProps("search")}
 			/>
 		</Box>

@@ -40,7 +40,7 @@ export const getTakenBooks: Endpoint = {
 
 			return {
 				...book,
-				createdAt: latestLog.createdAt,
+				createdAt: latestLog?.createdAt,
 			};
 		}));
 

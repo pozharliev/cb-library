@@ -47,10 +47,10 @@ function Hit({ hit }: { hit: BookHit }): JSX.Element {
 						{
 							hit.availableCopies > 0 ?
 								<>
-									<Button leftSection={<IconCheck />} size="sm" onClick={() => open()} > Take </Button>
+									<Button leftSection={<IconCheck />} size="sm" onClick={() => open()} > Вземи </Button>
 								</> :
 								<>
-									<Button leftSection={<IconX />} variant="outline" size="sm" disabled={true}> Taken </Button>
+									<Button leftSection={<IconX />} variant="outline" size="sm" disabled={true}> Взета </Button>
 								</>
 						}
 					</Flex>

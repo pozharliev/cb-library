@@ -20,13 +20,13 @@ export default function Page({ book }: { book: BookInfo }): InferGetServerSidePr
 		.map(cat => {
 			return (
 				<Link key={(cat as Category).id} href={{ pathname: "/books", query: `categories[0]=${(cat as Category).title}` }}>
-					<Text size="md"> {(cat as Category).title} </Text>
+					<Text size="xl"> {(cat as Category).title} </Text>
 				</Link>
 			);
 		});
 
 	return (
-		<Flex gap={rem(48)} w="100%">
+		<Flex gap={rem(48)} w="100%" align="center" justify="center">
 			<Image
 				alt={book.title}
 				radius="sm"
@@ -36,19 +36,19 @@ export default function Page({ book }: { book: BookInfo }): InferGetServerSidePr
 			/>
 
 			<Flex direction="column">
-				<Title order={3}> {book.title + (book.subtitle ? `. ${book.subtitle}.` : "")} </Title>
+				<Title order={1}> {book.title + (book.subtitle ? `. ${book.subtitle}.` : "")} </Title>
 
 				<Flex direction="row" align="center" gap={rem(8)}>
-					<Title order={4}> Author: </Title>
+					<Title order={2}> Author: </Title>
 					<Link href={{ pathname: "/books", query: `author[0]=${book.author}` }}>
-						<Text size="md"> {book.author} </Text>
+						<Text size="xl"> {book.author} </Text>
 					</Link>
 				</Flex>
 
 				{
 					categories != null && categories?.length > 0 ?
 						<Flex direction="row" align="center" gap={rem(8)}>
-							<Title order={4}> Categories: </Title>
+							<Title order={2}> Categories: </Title>
 							{categories}
 						</Flex> :
 						null

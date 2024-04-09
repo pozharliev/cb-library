@@ -1,8 +1,8 @@
-import { Text, Title } from "@mantine/core";
+import { useRouter } from "next/router";
 
 export default function Home(): JSX.Element {
-	return (
-		<>
-		</>
-	);
+	const router = useRouter();
+	if (typeof window !== "undefined") {
+		router.push("/books");
+	}
 }

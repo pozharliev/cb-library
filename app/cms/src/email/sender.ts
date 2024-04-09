@@ -2,8 +2,6 @@ import payload from "payload";
 import fs from "fs/promises";
 import * as handlebars from "handlebars";
 
-type Template = "notice" | "statusChange";
-
 type EmailArgs = {
 	to: string;
 	userFullName: string;
